@@ -72,7 +72,8 @@ Future<void> main(List<String> arguments) async {
     keyMap = KeyMap(keys);
     rootLogger.info('Created default keymap.');
   }
-  await mainLoop(engine: engine, keyMap: keyMap);
+  final mainLoop = MainLoop(speechEngine: engine, keyMap: keyMap);
+  await mainLoop.run();
   engine.shutdown();
   rootLogger.info('Engine shutdown.');
 }
