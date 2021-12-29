@@ -13,25 +13,7 @@ part 'key_map.g.dart';
 @JsonSerializable()
 class KeyMap {
   /// Create an instance.
-  KeyMap(
-      {this.keys = const {
-        '.': KeyEvent.mode,
-        '0': KeyEvent.key0,
-        '1': KeyEvent.key1,
-        '2': KeyEvent.key2,
-        '3': KeyEvent.key3,
-        '4': KeyEvent.key4,
-        '5': KeyEvent.key5,
-        '6': KeyEvent.key6,
-        '7': KeyEvent.key7,
-        '8': KeyEvent.key8,
-        '9': KeyEvent.key9,
-        '/': KeyEvent.left,
-        '*': KeyEvent.right,
-        '-': KeyEvent.backspace,
-        '+': KeyEvent.cancel,
-        '\r': KeyEvent.enter
-      }});
+  KeyMap(this.keys);
 
   /// Create an instance from a JSON object.
   factory KeyMap.fromJson(Map<String, dynamic> json) => _$KeyMapFromJson(json);

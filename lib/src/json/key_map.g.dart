@@ -7,26 +7,9 @@ part of 'key_map.dart';
 // **************************************************************************
 
 KeyMap _$KeyMapFromJson(Map<String, dynamic> json) => KeyMap(
-      keys: (json['keys'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(k, $enumDecode(_$KeyEventEnumMap, e)),
-          ) ??
-          const {
-            '0': KeyEvent.key0,
-            '1': KeyEvent.key1,
-            '2': KeyEvent.key2,
-            '3': KeyEvent.key3,
-            '4': KeyEvent.key4,
-            '5': KeyEvent.key5,
-            '6': KeyEvent.key6,
-            '7': KeyEvent.key7,
-            '8': KeyEvent.key8,
-            '9': KeyEvent.key9,
-            '/': KeyEvent.left,
-            '*': KeyEvent.right,
-            '-': KeyEvent.backspace,
-            '+': KeyEvent.cancel,
-            '\n': KeyEvent.enter
-          },
+      (json['keys'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry(k, $enumDecode(_$KeyEventEnumMap, e)),
+      ),
     );
 
 Map<String, dynamic> _$KeyMapToJson(KeyMap instance) => <String, dynamic>{
@@ -49,4 +32,5 @@ const _$KeyEventEnumMap = {
   KeyEvent.enter: 'enter',
   KeyEvent.cancel: 'cancel',
   KeyEvent.backspace: 'backspace',
+  KeyEvent.mode: 'mode',
 };

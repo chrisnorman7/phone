@@ -4,6 +4,7 @@
     "espeak",
     "formals",
     "keymap",
+    "TTS",
     "writeln"
   ]
 }
