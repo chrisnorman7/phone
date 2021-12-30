@@ -1,13 +1,30 @@
 /// Provides the [SettingsPage] class.
 import 'dart:convert';
-import 'dart:math';
 
 import '../../enumerations.dart';
+import '../../main_loop.dart';
 import '../json/phone_options.dart';
 import '../ui/label.dart';
 import '../ui/widget_page.dart';
 import '../ui/widgets/widget.dart';
 import 'speech_systems_page.dart';
+
+/// Change the speech rate.
+Future<void> _changeSpeechRate(MainLoop mainLoop, int difference) async {
+  var rate = mainLoop.options.speechSystemRate ??
+      mainLoop.speechEngine.system.rateConfiguration.defaultValue;
+  rate += difference;
+  final minRate = mainLoop.speechEngine.system.rateConfiguration.minValue;
+  final maxRate = mainLoop.speechEngine.system.rateConfiguration.maxValue;
+  if (rate < minRate) {
+    rate = minRate;
+  } else if (rate > maxRate) {
+    rate = maxRate;
+  }
+  mainLoop.options.speechSystemRate = rate;
+  mainLoop.speechEngine.rate = rate;
+  await mainLoop.speechEngine.speak('Rate $rate.');
+}
 
 /// A menu for configuring the OS.
 class SettingsPage extends WidgetPage {
@@ -34,26 +51,8 @@ class SettingsPage extends WidgetPage {
             return 'Speech speed: $speed';
           },
           handledKeys: {
-            KeyEvent.key2: (mainLoop) async {
-              var rate = options.speechSystemRate ??
-                  mainLoop.speechEngine.system.rateConfiguration.defaultValue;
-              rate = min(
-                  mainLoop.speechEngine.system.rateConfiguration.maxValue,
-                  rate + 5);
-              options.speechSystemRate = rate;
-              mainLoop.speechEngine.rate = rate;
-              await mainLoop.speechEngine.speak('$rate');
-            },
-            KeyEvent.key8: (mainLoop) async {
-              var rate = options.speechSystemRate ??
-                  mainLoop.speechEngine.system.rateConfiguration.defaultValue;
-              rate = max(
-                  mainLoop.speechEngine.system.rateConfiguration.minValue,
-                  rate - 5);
-              options.speechSystemRate = rate;
-              mainLoop.speechEngine.rate = rate;
-              await mainLoop.speechEngine.speak('$rate');
-            },
+            KeyEvent.key2: (mainLoop) => _changeSpeechRate(mainLoop, 5),
+            KeyEvent.key8: (mainLoop) => _changeSpeechRate(mainLoop, -5),
             KeyEvent.key5: (mainLoop) async {
               options.speechSystemRate = null;
               mainLoop.speechEngine.rate =
