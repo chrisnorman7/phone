@@ -33,7 +33,7 @@ class SpeechEngine {
   Process? _process;
 
   /// Reset the speech process.
-  Future<Process> reset() async {
+  Future<Process> _reset() async {
     final process = await Process.start(system.executableName, [
       system.pitchArgument,
       _pitch.toString(),
@@ -57,12 +57,12 @@ class SpeechEngine {
   /// Silence speech.
   Future<void> silence() async {
     shutdown();
-    await reset();
+    await _reset();
   }
 
   /// Enqueue an utterance.
   Future<void> enqueueText(String text) async {
-    final process = _process ?? await reset();
+    final process = _process ?? await _reset();
     process.stdin.writeln(text);
   }
 
