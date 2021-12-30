@@ -54,7 +54,6 @@ Future<void> main(List<String> arguments) async {
   rootLogger.info('Using ${speechSystem.name} for TTS.');
   final engine = SpeechEngine(system: speechSystem);
   rootLogger.info('Created speech engine.');
-  engine.reset();
   stdin
     ..echoMode = false
     ..lineMode = false;

@@ -11,8 +11,7 @@ import 'src/ui/widget_page.dart';
 /// The main loop for the program.
 class MainLoop {
   /// Create an instance.
-  MainLoop({required this.speechEngine, required this.options})
-      : pages = [MainPage()];
+  MainLoop({required this.speechEngine, required this.options}) : pages = [];
 
   /// The speech engine to use.
   final SpeechEngine speechEngine;
@@ -26,11 +25,13 @@ class MainLoop {
   /// Run the loop.
   Future<void> run() async {
     final logger = Logger('Main Loop')..info('Started.');
+    await pushPage(MainPage());
     await for (final charCodes in stdin) {
       for (final charCode in charCodes) {
         final char = String.fromCharCode(charCode);
         final keyEvent = options.keyMap[char];
         if (char == 'q') {
+          pages.clear();
           logger.info('Done.');
           return;
         } else if (keyEvent == null) {
@@ -44,5 +45,17 @@ class MainLoop {
         }
       }
     }
+  }
+
+  /// Push a new page onto the [pages] stack.
+  Future<void> pushPage(WidgetPage page) async {
+    await page.showCurrentWidget(this);
+    pages.add(page);
+  }
+
+  /// Pop the top page from the [pages] stack.
+  Future<void> popPage() async {
+    final page = pages.removeLast();
+    await page.showCurrentWidget(this);
   }
 }

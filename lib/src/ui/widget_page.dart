@@ -66,7 +66,7 @@ class WidgetPage {
   }
 
   /// Show the current item.
-  void showCurrentWidget(MainLoop mainLoop) {
+  Future<void> showCurrentWidget(MainLoop mainLoop) async {
     final widget = currentWidget;
     final String labelText;
     if (widget == null) {
@@ -78,29 +78,29 @@ class WidgetPage {
     } else {
       labelText = widget.label();
     }
-    mainLoop.speechEngine.speak(labelText);
+    await mainLoop.speechEngine.speak(labelText);
   }
 
   /// Move up in the [widgets] list.
-  void moveLeft(MainLoop mainLoop) {
+  Future<void> moveLeft(MainLoop mainLoop) async {
     final index = _index;
     if (index == 0) {
       _index = null;
     } else if (index != null) {
       _index = index - 1;
     }
-    showCurrentWidget(mainLoop);
+    await showCurrentWidget(mainLoop);
   }
 
   /// Move down in the [widgets] list.
-  void moveRight(MainLoop mainLoop) {
+  Future<void> moveRight(MainLoop mainLoop) async {
     final index = _index;
     if (index == null) {
       _index = 0;
     } else if (index < widgets.length) {
       _index = min(index, index + 1);
     }
-    showCurrentWidget(mainLoop);
+    await showCurrentWidget(mainLoop);
   }
 
   /// Activate the current widget.
@@ -112,7 +112,7 @@ class WidgetPage {
   }
 
   /// Show the current time.
-  void showCurrentTime(MainLoop mainLoop) {
+  Future<void> showCurrentTime(MainLoop mainLoop) async {
     final now = DateTime.now();
     final hour = now.hour.toString().padLeft(2, '0');
     final minute = now.minute.toString().padLeft(2, '0');
@@ -154,13 +154,14 @@ class WidgetPage {
     } else {
       day = '${dayString}th';
     }
-    mainLoop.speechEngine
+    await mainLoop.speechEngine
         .speak('$hour:$minute on $weekDay $month $day ${now.year}.');
   }
 
   /// Handle a key event.
   void handleKeyEvent({required KeyEvent event, required MainLoop mainLoop}) {
     if (navigationMode == NavigationMode.standard) {
+      logger.info('Handle key $event.');
       switch (event) {
         case KeyEvent.cancel:
           final f = onCancel;
