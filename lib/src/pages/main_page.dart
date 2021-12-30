@@ -8,10 +8,13 @@ import 'settings_page.dart';
 class MainPage extends WidgetPage {
   /// Create an instance.
   MainPage()
-      : super(label: label('Main Menu'), widgets: [
-          Widget(
-              label: label('Settings'),
-              onActivate: (mainLoop) =>
-                  mainLoop.pushPage(SettingsPage(mainLoop.options)))
-        ]);
+      : super(
+            label: label('Main Menu'),
+            widgets: [
+              Widget(
+                  label: label('Settings'),
+                  onActivate: (mainLoop) =>
+                      mainLoop.pushPage(SettingsPage(mainLoop.options)))
+            ],
+            loggerName: 'Main Menu');
 }

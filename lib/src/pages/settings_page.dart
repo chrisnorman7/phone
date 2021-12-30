@@ -13,7 +13,8 @@ class SettingsPage extends WidgetPage {
       : super(
             label: label('Settings'),
             widgets: [],
-            onCancel: (mainLoop) => mainLoop.popPage()) {
+            onCancel: (mainLoop) => mainLoop.popPage(),
+            loggerName: 'Settings Page') {
     widgets.addAll([
       Widget(
           label: () => 'Return to navigation mode automatically: '
