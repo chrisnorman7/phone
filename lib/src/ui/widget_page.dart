@@ -6,7 +6,7 @@ import 'label.dart';
 import 'widgets/widget.dart';
 
 /// The type of the [WidgetPage.onCancel] function.
-typedef OnCancelType = void Function(MainLoop mainLoop);
+typedef OnCancelType = Future<void> Function(MainLoop mainLoop);
 
 /// The type for all information key callbacks.
 typedef InfoKeyCallback = void Function(MainLoop mainLoop);
@@ -23,6 +23,10 @@ class WidgetPage {
         navigationMode = NavigationMode.standard,
         infoModeKeys = {} {
     infoModeKeys[KeyEvent.key0] = showCurrentTime;
+    infoModeKeys[KeyEvent.mode] = (mainLoop) async {
+      navigationMode = NavigationMode.standard;
+      await mainLoop.speechEngine.speak('Navigation mode.');
+    };
   }
 
   /// The label for this list.
@@ -164,7 +168,7 @@ class WidgetPage {
         case KeyEvent.cancel:
           final f = onCancel;
           if (f != null) {
-            f(mainLoop);
+            await f(mainLoop);
           }
           break;
         case KeyEvent.enter:
@@ -177,14 +181,8 @@ class WidgetPage {
           moveRight(mainLoop);
           break;
         case KeyEvent.mode:
-          if (navigationMode == NavigationMode.standard) {
-            navigationMode = NavigationMode.info;
-            mainLoop.speechEngine
-                .speak('Information mode. Press again to exit.');
-          } else {
-            navigationMode = NavigationMode.standard;
-            mainLoop.speechEngine.speak('Navigation mode.');
-          }
+          navigationMode = NavigationMode.info;
+          mainLoop.speechEngine.speak('Information mode. Press again to exit.');
           break;
         default:
           logger.info('Unhandled event $event.');

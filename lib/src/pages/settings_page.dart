@@ -10,7 +10,10 @@ import '../ui/widgets/widget.dart';
 class SettingsPage extends WidgetPage {
   /// Create an instance.
   SettingsPage(PhoneOptions options)
-      : super(label: label('Settings'), widgets: []) {
+      : super(
+            label: label('Settings'),
+            widgets: [],
+            onCancel: (mainLoop) => mainLoop.popPage()) {
     widgets.addAll([
       Widget(
           label: () => 'Return to navigation mode automatically: '
