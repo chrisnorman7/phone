@@ -40,7 +40,7 @@ class MainLoop {
           if (pages.isEmpty) {
             logger.info('Key event with no pages: $keyEvent.');
           } else {
-            pages.last.handleKeyEvent(event: keyEvent, mainLoop: this);
+            await pages.last.handleKeyEvent(event: keyEvent, mainLoop: this);
           }
         }
       }
@@ -55,7 +55,9 @@ class MainLoop {
 
   /// Pop the top page from the [pages] stack.
   Future<void> popPage() async {
-    final page = pages.removeLast();
-    await page.showCurrentWidget(this);
+    pages.removeLast();
+    if (pages.isNotEmpty) {
+      await pages.last.showCurrentWidget(this);
+    }
   }
 }

@@ -1,6 +1,3 @@
-/// Provides the [WidgetPage] class.
-import 'dart:math';
-
 import 'package:logging/logging.dart';
 
 import '../../enumerations.dart';
@@ -97,17 +94,17 @@ class WidgetPage {
     final index = _index;
     if (index == null) {
       _index = 0;
-    } else if (index < widgets.length) {
-      _index = min(index, index + 1);
+    } else if (index < (widgets.length - 1)) {
+      _index = index + 1;
     }
     await showCurrentWidget(mainLoop);
   }
 
   /// Activate the current widget.
-  void activate(MainLoop mainLoop) {
+  Future<void> activate(MainLoop mainLoop) async {
     final onActivate = currentWidget?.onActivate;
     if (onActivate != null) {
-      onActivate(mainLoop);
+      await onActivate(mainLoop);
     }
   }
 
@@ -159,7 +156,8 @@ class WidgetPage {
   }
 
   /// Handle a key event.
-  void handleKeyEvent({required KeyEvent event, required MainLoop mainLoop}) {
+  Future<void> handleKeyEvent(
+      {required KeyEvent event, required MainLoop mainLoop}) async {
     if (navigationMode == NavigationMode.standard) {
       logger.info('Handle key $event.');
       switch (event) {
@@ -170,7 +168,7 @@ class WidgetPage {
           }
           break;
         case KeyEvent.enter:
-          activate(mainLoop);
+          await activate(mainLoop);
           break;
         case KeyEvent.left:
           moveLeft(mainLoop);

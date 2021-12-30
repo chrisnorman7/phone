@@ -1,5 +1,10 @@
+import 'dart:async';
+
 import '../../../main_loop.dart';
 import '../label.dart';
+
+/// The type for the [Widget.onActivate] function.
+typedef OnActivateCallback = Future<void> Function(MainLoop mainLoop);
 
 /// Provides the [Widget] class.
 
@@ -15,5 +20,5 @@ class Widget {
   ///
   /// If this value is `null`, then it will not be possible to activate this
   /// widget.
-  final void Function(MainLoop mainLoop)? onActivate;
+  final OnActivateCallback? onActivate;
 }
