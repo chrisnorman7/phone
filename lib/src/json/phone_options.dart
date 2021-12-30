@@ -11,7 +11,10 @@ part 'phone_options.g.dart';
 @JsonSerializable()
 class PhoneOptions {
   /// Create an instance.
-  PhoneOptions({required this.newLineChar, required this.speechSystemName});
+  PhoneOptions(
+      {required this.newLineChar,
+      required this.speechSystemName,
+      required this.keyMap});
 
   /// Create an instance from a JSON object.
   factory PhoneOptions.fromJson(Map<String, dynamic> json) =>
@@ -25,6 +28,9 @@ class PhoneOptions {
 
   /// The name of the speech system to use.
   String speechSystemName;
+
+  /// The keys to use.
+  final Map<String, KeyEvent> keyMap;
 
   /// Convert an instance to JSON.
   Map<String, dynamic> toJson() => _$PhoneOptionsToJson(this);
