@@ -12,7 +12,7 @@ PhoneOptions _$PhoneOptionsFromJson(Map<String, dynamic> json) => PhoneOptions(
       keyMap: (json['keyMap'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(k, $enumDecode(_$KeyEventEnumMap, e)),
       ),
-      speechSystemSpeed: json['speechSystemSpeed'] as int?,
+      speechSystemRate: json['speechSystemRate'] as int?,
       navigationModeSticky: json['navigationModeSticky'] as bool? ?? true,
     );
 
@@ -20,7 +20,7 @@ Map<String, dynamic> _$PhoneOptionsToJson(PhoneOptions instance) =>
     <String, dynamic>{
       'newLineChar': instance.newLineChar,
       'speechSystemName': instance.speechSystemName,
-      'speechSystemSpeed': instance.speechSystemSpeed,
+      'speechSystemRate': instance.speechSystemRate,
       'keyMap':
           instance.keyMap.map((k, e) => MapEntry(k, _$KeyEventEnumMap[e])),
       'navigationModeSticky': instance.navigationModeSticky,

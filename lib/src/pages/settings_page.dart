@@ -26,29 +26,39 @@ class SettingsPage extends WidgetPage {
       Widget(
           label: () {
             final String speed;
-            if (options.speechSystemSpeed == null) {
+            if (options.speechSystemRate == null) {
               speed = 'Default';
             } else {
-              speed = '${options.speechSystemSpeed}{%';
+              speed = '${options.speechSystemRate}{';
             }
             return 'Speech speed: $speed';
           },
-          onActivate: (mainLoop) async {
-            options.speechSystemSpeed = null;
-            await mainLoop.speechEngine.speak('Default.');
-          },
           handledKeys: {
             KeyEvent.key2: (mainLoop) async {
-              var rate = options.speechSystemSpeed ?? 50;
-              rate = min(100, rate + 5);
-              options.speechSystemSpeed = rate;
-              await mainLoop.speechEngine.speak('$rate%');
+              var rate = options.speechSystemRate ??
+                  mainLoop.speechEngine.system.rateConfiguration.defaultValue;
+              rate = min(
+                  mainLoop.speechEngine.system.rateConfiguration.maxValue,
+                  rate + 5);
+              options.speechSystemRate = rate;
+              mainLoop.speechEngine.rate = rate;
+              await mainLoop.speechEngine.speak('$rate');
             },
             KeyEvent.key8: (mainLoop) async {
-              var rate = options.speechSystemSpeed ?? 50;
-              rate = max(0, rate - 5);
-              options.speechSystemSpeed = rate;
-              await mainLoop.speechEngine.speak('$rate%');
+              var rate = options.speechSystemRate ??
+                  mainLoop.speechEngine.system.rateConfiguration.defaultValue;
+              rate = max(
+                  mainLoop.speechEngine.system.rateConfiguration.minValue,
+                  rate - 5);
+              options.speechSystemRate = rate;
+              mainLoop.speechEngine.rate = rate;
+              await mainLoop.speechEngine.speak('$rate');
+            },
+            KeyEvent.key5: (mainLoop) async {
+              options.speechSystemRate = null;
+              mainLoop.speechEngine.rate =
+                  mainLoop.speechEngine.system.rateConfiguration.defaultValue;
+              await mainLoop.speechEngine.speak('Default.');
             }
           }),
       Widget(

@@ -11,8 +11,8 @@ import '../../speech.dart';
 class SpeechEngine {
   /// Create an instance.
   SpeechEngine({required this.system, int? pitch, int? rate})
-      : _pitch = pitch ?? system.pitchConfiguration.defaultValue,
-        _rate = rate ?? system.rateConfiguration.defaultValue,
+      : pitch = pitch ?? system.pitchConfiguration.defaultValue,
+        rate = rate ?? system.rateConfiguration.defaultValue,
         logger = Logger('Speech Engine <${system.name}>');
 
   /// The speech system to use.
@@ -22,19 +22,10 @@ class SpeechEngine {
   final Logger logger;
 
   /// The current speech pitch.
-  final int _pitch;
+  final int pitch;
 
   /// The speech rate.
-  int _rate;
-
-  /// Set the speech rate as a percentage.
-  set rate(int value) {
-    _rate = ((system.rateConfiguration.maxValue -
-                system.rateConfiguration.minValue) /
-            100 *
-            value)
-        .floor();
-  }
+  int rate;
 
   /// The process to use.
   ///
@@ -45,9 +36,9 @@ class SpeechEngine {
   Future<Process> _reset() async {
     final process = await Process.start(system.executableName, [
       system.pitchArgument,
-      _pitch.toString(),
+      pitch.toString(),
       system.rateArgument,
-      _rate.toString(),
+      rate.toString(),
       ...system.extraArguments
     ]);
     _process = process;
