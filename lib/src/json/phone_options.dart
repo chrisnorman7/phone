@@ -14,7 +14,8 @@ class PhoneOptions {
   PhoneOptions(
       {required this.newLineChar,
       required this.speechSystemName,
-      required this.keyMap});
+      required this.keyMap,
+      this.navigationModeSticky = true});
 
   /// Create an instance from a JSON object.
   factory PhoneOptions.fromJson(Map<String, dynamic> json) =>
@@ -31,6 +32,9 @@ class PhoneOptions {
 
   /// The keys to use.
   final Map<String, KeyEvent> keyMap;
+
+  /// Whether ot not information mode should be sticky.
+  bool navigationModeSticky;
 
   /// Convert an instance to JSON.
   Map<String, dynamic> toJson() => _$PhoneOptionsToJson(this);

@@ -16,3 +16,4 @@ dev_dependencies:
 dependencies:
   json_annotation: ^4.4.0
   logging: ^1.0.2
+  meta: ^1.7.0

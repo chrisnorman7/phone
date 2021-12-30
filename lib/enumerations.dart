@@ -1,6 +1,8 @@
 /// Provides various enumerations used by the program.
 library enumerations;
 
+import 'src/ui/widget_page.dart';
+
 /// The various keys supported by the program.
 enum KeyEvent {
   /// Key 0.
@@ -50,4 +52,17 @@ enum KeyEvent {
 
   /// Change modes.
   mode,
+}
+
+/// The various navigation modes used by [WidgetPage] instances.
+enum NavigationMode {
+  /// Standard.
+  ///
+  /// In this mode, keys act as you'd expect.
+  standard,
+
+  /// Information.
+  ///
+  /// In this mode, the 0 key speaks the time, ETC.
+  info,
 }
