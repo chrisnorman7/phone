@@ -14,7 +14,7 @@ class MainLoop {
   MainLoop({required this.speechEngine, required this.options}) : pages = [];
 
   /// The speech engine to use.
-  final SpeechEngine speechEngine;
+  SpeechEngine speechEngine;
 
   /// The phone options.
   final PhoneOptions options;
@@ -33,6 +33,8 @@ class MainLoop {
         if (char == 'q') {
           pages.clear();
           logger.info('Done.');
+          speechEngine.shutdown();
+          logger.info('Speech engine shutdown.');
           return;
         } else if (keyEvent == null) {
           logger.warning('Unhandled key $char.');

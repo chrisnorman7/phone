@@ -60,6 +60,4 @@ Future<void> main(List<String> arguments) async {
   rootLogger.info('Configured stdin.');
   final mainLoop = MainLoop(speechEngine: engine, options: options);
   await mainLoop.run();
-  engine.shutdown();
-  rootLogger.info('Engine shutdown.');
 }

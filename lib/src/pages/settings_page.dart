@@ -5,6 +5,7 @@ import '../json/phone_options.dart';
 import '../ui/label.dart';
 import '../ui/widget_page.dart';
 import '../ui/widgets/widget.dart';
+import 'speech_systems_page.dart';
 
 /// A menu for configuring the OS.
 class SettingsPage extends WidgetPage {
@@ -16,6 +17,10 @@ class SettingsPage extends WidgetPage {
             onCancel: (mainLoop) => mainLoop.popPage(),
             loggerName: 'Settings Page') {
     widgets.addAll([
+      Widget(
+          label: () => 'Speech synthesizer: ${options.speechSystemName}',
+          onActivate: (mainLoop) =>
+              mainLoop.pushPage(SpeechSystemsPage(options))),
       Widget(
           label: () => 'Return to navigation mode automatically: '
               '${options.navigationModeSticky ? "on" : "off"}',
@@ -35,7 +40,7 @@ class SettingsPage extends WidgetPage {
           label: label('Cancel'),
           onActivate: (mainLoop) async {
             await mainLoop.popPage();
-          })
+          }),
     ]);
   }
 }
