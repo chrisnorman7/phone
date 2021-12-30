@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import '../../../enumerations.dart';
 import '../../../main_loop.dart';
 import '../label.dart';
 
@@ -11,7 +12,8 @@ typedef OnActivateCallback = Future<void> Function(MainLoop mainLoop);
 /// The base class for all widgets.
 class Widget {
   /// Create an instance.
-  const Widget({required this.label, this.onActivate});
+  const Widget(
+      {required this.label, this.onActivate, this.handledKeys = const {}});
 
   /// The function that will return the label for this widget.
   final LabelType label;
@@ -21,4 +23,7 @@ class Widget {
   /// If this value is `null`, then it will not be possible to activate this
   /// widget.
   final OnActivateCallback? onActivate;
+
+  /// The key events that this widget will handle.
+  final Map<KeyEvent, OnActivateCallback> handledKeys;
 }

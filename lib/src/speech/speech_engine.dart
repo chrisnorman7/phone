@@ -25,7 +25,16 @@ class SpeechEngine {
   final int _pitch;
 
   /// The speech rate.
-  final int _rate;
+  int _rate;
+
+  /// Set the speech rate as a percentage.
+  set rate(int value) {
+    _rate = ((system.rateConfiguration.maxValue -
+                system.rateConfiguration.minValue) /
+            100 *
+            value)
+        .floor();
+  }
 
   /// The process to use.
   ///

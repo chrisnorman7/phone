@@ -53,6 +53,10 @@ Future<void> main(List<String> arguments) async {
       .firstWhere((element) => element.name == options.speechSystemName);
   rootLogger.info('Using ${speechSystem.name} for TTS.');
   final engine = SpeechEngine(system: speechSystem);
+  final rate = options.speechSystemSpeed;
+  if (rate != null) {
+    engine.rate = rate;
+  }
   rootLogger.info('Created speech engine.');
   stdin
     ..echoMode = false

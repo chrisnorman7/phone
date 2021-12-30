@@ -15,6 +15,7 @@ class PhoneOptions {
       {required this.newLineChar,
       required this.speechSystemName,
       required this.keyMap,
+      this.speechSystemSpeed,
       this.navigationModeSticky = true});
 
   /// Create an instance from a JSON object.
@@ -29,6 +30,12 @@ class PhoneOptions {
 
   /// The name of the speech system to use.
   String speechSystemName;
+
+  /// The speech speed as a percentage.
+  ///
+  /// If this value is `null`, then the default speed for the selected speech
+  /// system will be used.
+  int? speechSystemSpeed;
 
   /// The keys to use.
   final Map<String, KeyEvent> keyMap;

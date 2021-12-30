@@ -1,6 +1,8 @@
 /// Provides the [SettingsPage] class.
 import 'dart:convert';
+import 'dart:math';
 
+import '../../enumerations.dart';
 import '../json/phone_options.dart';
 import '../ui/label.dart';
 import '../ui/widget_page.dart';
@@ -21,6 +23,34 @@ class SettingsPage extends WidgetPage {
           label: () => 'Speech synthesizer: ${options.speechSystemName}',
           onActivate: (mainLoop) =>
               mainLoop.pushPage(SpeechSystemsPage(options))),
+      Widget(
+          label: () {
+            final String speed;
+            if (options.speechSystemSpeed == null) {
+              speed = 'Default';
+            } else {
+              speed = '${options.speechSystemSpeed}{%';
+            }
+            return 'Speech speed: $speed';
+          },
+          onActivate: (mainLoop) async {
+            options.speechSystemSpeed = null;
+            await mainLoop.speechEngine.speak('Default.');
+          },
+          handledKeys: {
+            KeyEvent.key2: (mainLoop) async {
+              var rate = options.speechSystemSpeed ?? 50;
+              rate = min(100, rate + 5);
+              options.speechSystemSpeed = rate;
+              await mainLoop.speechEngine.speak('$rate%');
+            },
+            KeyEvent.key8: (mainLoop) async {
+              var rate = options.speechSystemSpeed ?? 50;
+              rate = max(0, rate - 5);
+              options.speechSystemSpeed = rate;
+              await mainLoop.speechEngine.speak('$rate%');
+            }
+          }),
       Widget(
           label: () => 'Return to navigation mode automatically: '
               '${options.navigationModeSticky ? "on" : "off"}',

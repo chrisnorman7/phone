@@ -185,6 +185,10 @@ class WidgetPage {
           mainLoop.speechEngine.speak('Information mode. Press again to exit.');
           break;
         default:
+          final widget = currentWidget;
+          if (widget != null && widget.handledKeys.containsKey(event)) {
+            await widget.handledKeys[event]!(mainLoop);
+          }
           logger.info('Unhandled event $event.');
       }
     } else {
