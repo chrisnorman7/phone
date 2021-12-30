@@ -12,6 +12,6 @@ const speechSystems = <SpeechSystem>[
           SpeechConfigurationValue(minValue: 0, defaultValue: 50, maxValue: 99),
       rateArgument: '-s',
       rateConfiguration: SpeechConfigurationValue(
-          minValue: 10, defaultValue: 175, maxValue: 5000),
+          minValue: 10, defaultValue: 175, maxValue: 400),
       extraArguments: ['-z']),
 ];
