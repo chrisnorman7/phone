@@ -1,8 +1,8 @@
 /// Provides the [HelpPage] class.
 import 'dart:async';
 
+import '../../alphabets.dart';
 import '../../enumerations.dart';
-import '../../letters.dart';
 import '../../main_loop.dart';
 import '../ui/label.dart';
 import '../ui/widget_page.dart';
