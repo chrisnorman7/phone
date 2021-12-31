@@ -69,10 +69,13 @@ class SpeechEngine {
     await _reset();
   }
 
-  /// Enqueue an utterance.
+  /// Enqueue some text.
   Future<void> enqueueText(String text) async {
     final process = _process ?? await _reset();
-    process.stdin.writeln(text);
+    final command =
+        system.beforeSpeech + system.translateText(text) + system.afterSpeech;
+    logger.info(command);
+    process.stdin.writeln(command);
   }
 
   /// Speak something.
