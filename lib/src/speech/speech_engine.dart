@@ -34,13 +34,22 @@ class SpeechEngine {
 
   /// Reset the speech process.
   Future<Process> _reset() async {
-    final process = await Process.start(system.executableName, [
-      system.pitchArgument,
-      pitch.toString(),
-      system.rateArgument,
-      rate.toString(),
-      ...system.extraArguments
-    ]);
+    final arguments = [...system.extraArguments];
+    final pitchArgument = system.pitchArgument;
+    if (pitchArgument != null) {
+      arguments.addAll([
+        pitchArgument,
+        pitch.toString(),
+      ]);
+    }
+    final rateArgument = system.rateArgument;
+    if (rateArgument != null) {
+      arguments.addAll([
+        rateArgument,
+        rate.toString(),
+      ]);
+    }
+    final process = await Process.start(system.executableName, arguments);
     _process = process;
     logger.info('Reset.');
     return process;

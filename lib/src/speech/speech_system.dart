@@ -9,10 +9,12 @@ class SpeechSystem {
   const SpeechSystem(
       {required this.name,
       required this.executableName,
-      required this.pitchArgument,
       required this.pitchConfiguration,
-      required this.rateArgument,
       required this.rateConfiguration,
+      this.pitchArgument,
+      this.rateArgument,
+      this.beforeSpeech = '',
+      this.afterSpeech = '',
       this.extraArguments = const []});
 
   /// The name of this system.
@@ -22,16 +24,22 @@ class SpeechSystem {
   final String executableName;
 
   /// The command line switch that changes the pitch.
-  final String pitchArgument;
+  final String? pitchArgument;
 
   /// The pitch configuration.
   final SpeechConfigurationValue pitchConfiguration;
 
   /// The command line switch that allows configuring speech rate.
-  final String rateArgument;
+  final String? rateArgument;
 
   /// The rate configuration.
   final SpeechConfigurationValue rateConfiguration;
+
+  /// The string to put before the text to speak.
+  final String beforeSpeech;
+
+  /// The string to append to the speech text.
+  final String afterSpeech;
 
   /// Extra arguments to pass to the executable.
   final List<String> extraArguments;
