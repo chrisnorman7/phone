@@ -26,8 +26,10 @@ class DummySpeechEngine extends SpeechEngine {
 
   /// Store the speech string.
   @override
-  Future<void> speak(String text, Map<String, String> substitutions,
-      {bool interrupt = true}) async {
+  Future<void> speak(
+      {required String text,
+      required Map<String, String> substitutions,
+      bool interrupt = true}) async {
     final utterance = SpeechUtterance(text: text, interrupt: interrupt);
     utterances.add(utterance);
   }
@@ -49,12 +51,13 @@ void main() {
         'Speaking',
         () async {
           engine.utterances.clear();
-          await engine.speak('Hello world.', {});
+          await engine.speak(text: 'Hello world.', substitutions: {});
           expect(engine.utterances.length, 1);
           var utterance = engine.utterances.first;
           expect(utterance.interrupt, isTrue);
           expect(utterance.text, 'Hello world.');
-          await engine.speak('Testing.', {}, interrupt: false);
+          await engine.speak(
+              text: 'Testing.', substitutions: {}, interrupt: false);
           expect(engine.utterances.length, 2);
           utterance = engine.utterances.last;
           expect(utterance.interrupt, isFalse);

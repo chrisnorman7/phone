@@ -52,8 +52,11 @@ class MainLoop {
   /// Speak some text.
   ///
   /// This method uses the [options] speech dictionary for substitutions.
-  Future<void> speak(String text) =>
-      speechEngine.speak(text, options.speechDictionary);
+  Future<void> speak(String text, {bool interrupt = true}) =>
+      speechEngine.speak(
+          text: text,
+          substitutions: options.speechDictionary,
+          interrupt: interrupt);
 
   /// Push a new page onto the [pages] stack.
   Future<void> pushPage(WidgetPage page) async {

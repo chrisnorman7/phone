@@ -89,8 +89,10 @@ class SpeechEngine {
   }
 
   /// Speak something.
-  Future<void> speak(String text, Map<String, String> substitutions,
-      {bool interrupt = true}) async {
+  Future<void> speak(
+      {required String text,
+      required Map<String, String> substitutions,
+      required bool interrupt}) async {
     logger.info('Speak "$text" interrupt: $interrupt.');
     if (interrupt) {
       await silence();
