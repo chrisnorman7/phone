@@ -43,4 +43,10 @@ class SpeechSystem {
 
   /// Extra arguments to pass to the executable.
   final List<String> extraArguments;
+
+  /// Return [text] as a string suitable for the synthesizer.
+  ///
+  /// This function is used by Festival for example, where quotation marks need
+  /// to be escaped.
+  String translateText(String text) => text;
 }
