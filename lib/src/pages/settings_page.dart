@@ -11,8 +11,9 @@ import 'speech_systems_page.dart';
 
 /// Change the speech rate.
 Future<void> _changeSpeechRate(MainLoop mainLoop, int difference) async {
-  var rate = mainLoop.options.speechSystemRate ??
-      mainLoop.speechEngine.system.rateConfiguration.defaultValue;
+  var rate =
+      mainLoop.options.getSpeechRate(mainLoop.speechEngine.system.name) ??
+          mainLoop.speechEngine.system.rateConfiguration.defaultValue;
   rate += difference;
   final minRate = mainLoop.speechEngine.system.rateConfiguration.minValue;
   final maxRate = mainLoop.speechEngine.system.rateConfiguration.maxValue;
@@ -21,7 +22,7 @@ Future<void> _changeSpeechRate(MainLoop mainLoop, int difference) async {
   } else if (rate > maxRate) {
     rate = maxRate;
   }
-  mainLoop.options.speechSystemRate = rate;
+  mainLoop.options.setSpeechRate(mainLoop.speechEngine.system.name, rate);
   mainLoop.speechEngine.rate = rate;
   await mainLoop.speechEngine.speak('Rate $rate.');
 }
@@ -43,10 +44,11 @@ class SettingsPage extends WidgetPage {
       Widget(
           label: () {
             final String speed;
-            if (options.speechSystemRate == null) {
+            final speechRate = options.getSpeechRate(options.speechSystemName);
+            if (speechRate == null) {
               speed = 'Default';
             } else {
-              speed = '${options.speechSystemRate}{';
+              speed = speechRate.toString();
             }
             return 'Speech speed: $speed';
           },
@@ -54,7 +56,7 @@ class SettingsPage extends WidgetPage {
             KeyEvent.key2: (mainLoop) => _changeSpeechRate(mainLoop, 5),
             KeyEvent.key8: (mainLoop) => _changeSpeechRate(mainLoop, -5),
             KeyEvent.key5: (mainLoop) async {
-              options.speechSystemRate = null;
+              options.setSpeechRate(mainLoop.speechEngine.system.name);
               mainLoop.speechEngine.rate =
                   mainLoop.speechEngine.system.rateConfiguration.defaultValue;
               await mainLoop.speechEngine.speak('Default.');

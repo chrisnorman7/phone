@@ -53,7 +53,7 @@ Future<void> main(List<String> arguments) async {
       .firstWhere((element) => element.name == options.speechSystemName);
   rootLogger.info('Using ${speechSystem.name} for TTS.');
   final engine = SpeechEngine(system: speechSystem);
-  final rate = options.speechSystemRate;
+  final rate = options.getSpeechRate(speechSystem.name);
   if (rate != null) {
     engine.rate = rate;
     rootLogger.info('Setting speech rate to $rate.');

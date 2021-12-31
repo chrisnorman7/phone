@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../enumerations.dart';
+import '../speech/speech_system.dart';
 
 part 'phone_options.g.dart';
 
@@ -15,8 +16,9 @@ class PhoneOptions {
       {required this.newLineChar,
       required this.speechSystemName,
       required this.keyMap,
-      this.speechSystemRate,
-      this.navigationModeSticky = true});
+      Map<String, int>? speechSystemRates,
+      this.navigationModeSticky = true})
+      : speechSystemRates = speechSystemRates ?? {};
 
   /// Create an instance from a JSON object.
   factory PhoneOptions.fromJson(Map<String, dynamic> json) =>
@@ -35,13 +37,25 @@ class PhoneOptions {
   ///
   /// If this value is `null`, then the default speed for the selected speech
   /// system will be used.
-  int? speechSystemRate;
+  final Map<String, int> speechSystemRates;
 
   /// The keys to use.
   final Map<String, KeyEvent> keyMap;
 
   /// Whether ot not information mode should be sticky.
   bool navigationModeSticky;
+
+  /// Get the speech rate for the [SpeechSystem] with the given [systemName].
+  int? getSpeechRate(String systemName) => speechSystemRates[systemName];
+
+  /// Set the speech rate for the [SpeechSystem] with the given [systemName].
+  void setSpeechRate(String systemName, [int? rate]) {
+    if (rate == null) {
+      speechSystemRates.remove(systemName);
+    } else {
+      speechSystemRates[systemName] = rate;
+    }
+  }
 
   /// Convert an instance to JSON.
   Map<String, dynamic> toJson() => _$PhoneOptionsToJson(this);
