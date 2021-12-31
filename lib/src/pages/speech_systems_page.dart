@@ -21,6 +21,11 @@ class SpeechSystemsPage extends WidgetPage {
                         options.speechSystemName = system.name;
                         mainLoop.speechEngine.shutdown();
                         mainLoop.speechEngine = SpeechEngine(system: system);
+                        final rate =
+                            mainLoop.options.getSpeechRate(system.name);
+                        if (rate != null) {
+                          mainLoop.speechEngine.rate = rate;
+                        }
                       }
                       await mainLoop.popPage();
                     })
