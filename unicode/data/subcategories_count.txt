@@ -1,0 +1,100 @@
+Smileys & Emotion	face-smiling	13
+Smileys & Emotion	face-affection	10
+Smileys & Emotion	face-tongue	6
+Smileys & Emotion	face-hand	4
+Smileys & Emotion	face-neutral-skeptical	13
+Smileys & Emotion	face-sleepy	5
+Smileys & Emotion	face-unwell	12
+Smileys & Emotion	face-hat	3
+Smileys & Emotion	face-glasses	3
+Smileys & Emotion	face-concerned	25
+Smileys & Emotion	face-negative	9
+Smileys & Emotion	face-costume	8
+Smileys & Emotion	cat-face	9
+Smileys & Emotion	monkey-face	3
+Smileys & Emotion	emotion	47
+People & Body	hand-fingers-open	31
+People & Body	hand-fingers-partial	49
+People & Body	hand-single-finger	37
+People & Body	hand-fingers-closed	36
+People & Body	hands	31
+People & Body	hand-prop	19
+People & Body	body-parts	48
+People & Body	person	192
+People & Body	person-gesture	300
+People & Body	person-role	617
+People & Body	person-fantasy	244
+People & Body	person-activity	318
+People & Body	person-sport	395
+People & Body	person-resting	42
+People & Body	family	534
+People & Body	person-symbol	6
+Component	skin-tone	5
+Component	hair-style	4
+Animals & Nature	animal-mammal	66
+Animals & Nature	animal-bird	19
+Animals & Nature	animal-amphibian	1
+Animals & Nature	animal-reptile	8
+Animals & Nature	animal-marine	10
+Animals & Nature	animal-bug	18
+Animals & Nature	plant-flower	11
+Animals & Nature	plant-other	14
+Food & Drink	food-fruit	19
+Food & Drink	food-vegetable	16
+Food & Drink	food-prepared	34
+Food & Drink	food-asian	17
+Food & Drink	food-marine	5
+Food & Drink	food-sweet	14
+Food & Drink	drink	19
+Food & Drink	dishware	7
+Travel & Places	place-map	8
+Travel & Places	place-geographic	16
+Travel & Places	place-building	32
+Travel & Places	place-religious	7
+Travel & Places	place-other	18
+Travel & Places	transport-ground	54
+Travel & Places	transport-water	11
+Travel & Places	transport-air	16
+Travel & Places	hotel	3
+Travel & Places	time	34
+Travel & Places	sky & weather	65
+Activities	event	23
+Activities	award-medal	7
+Activities	sport	28
+Activities	game	29
+Activities	arts & crafts	8
+Objects	clothing	48
+Objects	sound	9
+Objects	music	12
+Objects	musical-instrument	9
+Objects	phone	7
+Objects	computer	18
+Objects	light & video	19
+Objects	book-paper	19
+Objects	money	10
+Objects	mail	15
+Objects	writing	13
+Objects	office	31
+Objects	lock	7
+Objects	tool	35
+Objects	science	8
+Objects	medical	5
+Objects	household	26
+Objects	other-object	8
+Symbols	transport-sign	13
+Symbols	warning	16
+Symbols	arrow	35
+Symbols	religion	21
+Symbols	zodiac	13
+Symbols	av-symbol	33
+Symbols	gender	6
+Symbols	math	7
+Symbols	punctuation	10
+Symbols	currency	2
+Symbols	other-symbol	33
+Symbols	keycap	25
+Symbols	alphanum	49
+Symbols	geometric	38
+Flags	flag	14
+Flags	country-flag	258
+Flags	subdivision-flag	3

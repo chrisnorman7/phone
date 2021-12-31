@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:logging/logging.dart';
 
 import 'speech.dart';
+import 'src/json/emojis.dart';
 import 'src/json/phone_options.dart';
 import 'src/pages/main_page.dart';
 import 'src/ui/widget_page.dart';
@@ -11,13 +12,18 @@ import 'src/ui/widget_page.dart';
 /// The main loop for the program.
 class MainLoop {
   /// Create an instance.
-  MainLoop({required this.speechEngine, required this.options}) : pages = [];
+  MainLoop(
+      {required this.speechEngine, required this.options, required this.emojis})
+      : pages = [];
 
   /// The speech engine to use.
   SpeechEngine speechEngine;
 
   /// The phone options.
   final PhoneOptions options;
+
+  /// The emojis recognised by this program.
+  final EmojiList emojis;
 
   /// The stack of [WidgetPage] instances.
   final List<WidgetPage> pages;
