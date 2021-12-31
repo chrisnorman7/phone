@@ -24,7 +24,7 @@ Future<void> _changeSpeechRate(MainLoop mainLoop, int difference) async {
   }
   mainLoop.options.setSpeechRate(mainLoop.speechEngine.system.name, rate);
   mainLoop.speechEngine.rate = rate;
-  await mainLoop.speechEngine.speak('Rate $rate.');
+  await mainLoop.speak('Rate $rate.');
 }
 
 /// A menu for configuring the OS.
@@ -59,7 +59,7 @@ class SettingsPage extends WidgetPage {
               options.setSpeechRate(mainLoop.speechEngine.system.name);
               mainLoop.speechEngine.rate =
                   mainLoop.speechEngine.system.rateConfiguration.defaultValue;
-              await mainLoop.speechEngine.speak('Default.');
+              await mainLoop.speak('Default.');
             }
           }),
       Widget(

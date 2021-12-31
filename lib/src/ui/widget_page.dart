@@ -25,7 +25,7 @@ class WidgetPage {
     infoModeKeys[KeyEvent.key0] = showCurrentTime;
     infoModeKeys[KeyEvent.mode] = (mainLoop) async {
       navigationMode = NavigationMode.standard;
-      await mainLoop.speechEngine.speak('Navigation mode.');
+      await mainLoop.speak('Navigation mode.');
     };
   }
 
@@ -79,7 +79,7 @@ class WidgetPage {
     } else {
       labelText = widget.label();
     }
-    await mainLoop.speechEngine.speak(labelText);
+    await mainLoop.speak(labelText);
   }
 
   /// Move up in the [widgets] list.
@@ -155,8 +155,7 @@ class WidgetPage {
     } else {
       day = '${dayString}th';
     }
-    await mainLoop.speechEngine
-        .speak('$hour:$minute on $weekDay $month $day ${now.year}.');
+    await mainLoop.speak('$hour:$minute on $weekDay $month $day ${now.year}.');
   }
 
   /// Handle a key event.
@@ -182,7 +181,7 @@ class WidgetPage {
           break;
         case KeyEvent.mode:
           navigationMode = NavigationMode.info;
-          mainLoop.speechEngine.speak('Information mode. Press again to exit.');
+          mainLoop.speak('Information mode. Press again to exit.');
           break;
         default:
           final widget = currentWidget;

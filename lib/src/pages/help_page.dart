@@ -33,7 +33,7 @@ class HelpPage extends WidgetPage {
     if (characters != null) {
       characters = [
         for (final char in characters.split('')) char == ' ' ? 'space' : char
-      ].join(', ');
+      ].join(' ');
       keyDescription = 'Used to type $characters';
     } else {
       switch (event) {
@@ -67,6 +67,6 @@ class HelpPage extends WidgetPage {
       }
     }
     _cancel = event == KeyEvent.cancel;
-    await mainLoop.speechEngine.speak(keyDescription);
+    await mainLoop.speak(keyDescription);
   }
 }
