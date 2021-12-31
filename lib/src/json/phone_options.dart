@@ -8,17 +8,45 @@ import '../speech/speech_system.dart';
 
 part 'phone_options.g.dart';
 
+/// The default speech dictionary.
+const defaultSpeechDictionary = {
+  ',': 'comma',
+  '<': 'less',
+  '>': 'greater',
+  '.': 'dot',
+  '|': 'bar',
+  '¬': 'not',
+  '`': 'graav',
+  ';': 'semi',
+  ':': 'colon',
+  '[': 'left bracket',
+  ']': 'right bracket',
+  '{': 'left brace',
+  '}': 'right brace',
+  "'": 'tick',
+  '?': 'question',
+  '-': 'dash',
+  '!': 'bang',
+  '"': 'quote',
+  '£': 'pound',
+  '^': 'caret',
+  '(': 'left paren',
+  ')': 'right paren',
+  '_': 'line',
+};
+
 /// The options for this application.
 @JsonSerializable()
 class PhoneOptions {
   /// Create an instance.
-  PhoneOptions(
-      {required this.newLineChar,
-      required this.speechSystemName,
-      required this.keyMap,
-      Map<String, int>? speechSystemRates,
-      this.navigationModeSticky = true})
-      : speechSystemRates = speechSystemRates ?? {};
+  PhoneOptions({
+    required this.newLineChar,
+    required this.speechSystemName,
+    required this.keyMap,
+    Map<String, int>? speechSystemRates,
+    this.navigationModeSticky = true,
+    this.speechDictionary = defaultSpeechDictionary,
+  }) : speechSystemRates = speechSystemRates ?? {};
 
   /// Create an instance from a JSON object.
   factory PhoneOptions.fromJson(Map<String, dynamic> json) =>
@@ -44,6 +72,9 @@ class PhoneOptions {
 
   /// Whether ot not information mode should be sticky.
   bool navigationModeSticky;
+
+  /// The speech dictionary to use.
+  final Map<String, String> speechDictionary;
 
   /// Get the speech rate for the [SpeechSystem] with the given [systemName].
   int? getSpeechRate(String systemName) => speechSystemRates[systemName];
