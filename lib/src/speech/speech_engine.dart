@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:logging/logging.dart';
 
-import '../../speech.dart';
+import 'speech_system.dart';
 
 /// A speech engine.
 ///

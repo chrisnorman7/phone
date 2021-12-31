@@ -6,7 +6,6 @@ import 'package:phone/enumerations.dart';
 import 'package:phone/main_loop.dart';
 import 'package:phone/speech.dart';
 import 'package:phone/src/json/phone_options.dart';
-import 'package:phone/src/speech/speech_systems.dart';
 
 Future<void> main(List<String> arguments) async {
   final rootLogger = Logger.root;
