@@ -3,8 +3,14 @@
     "analyzer",
     "espeak",
     "formals",
+    "jkl",
     "keymap",
+    "mno",
+    "pqrs",
+    "r'ghi",
     "TTS",
-    "writeln"
+    "tuv",
+    "writeln",
+    "wxyz"
   ]
 }
