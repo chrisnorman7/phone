@@ -69,21 +69,32 @@ class SpeechEngine {
     await _reset();
   }
 
+  /// Used to substitute unspeakable characters.
+  String substituteText(String text, Map<String, String> substitutions) {
+    for (final entry in substitutions.entries) {
+      text = text.replaceAll(entry.key, ' ${entry.value} ');
+    }
+    return text;
+  }
+
   /// Enqueue some text.
-  Future<void> enqueueText(String text) async {
+  Future<void> enqueueText(
+      String text, Map<String, String> substitutions) async {
     final process = _process ?? await _reset();
-    final command =
-        system.beforeSpeech + system.translateText(text) + system.afterSpeech;
+    final command = system.beforeSpeech +
+        system.translateText(substituteText(text, substitutions)) +
+        system.afterSpeech;
     logger.info(command);
     process.stdin.writeln(command);
   }
 
   /// Speak something.
-  Future<void> speak(String text, {bool interrupt = true}) async {
+  Future<void> speak(String text, Map<String, String> substitutions,
+      {bool interrupt = true}) async {
     logger.info('Speak "$text" interrupt: $interrupt.');
     if (interrupt) {
       await silence();
     }
-    await enqueueText(text);
+    await enqueueText(text, substitutions);
   }
 }
