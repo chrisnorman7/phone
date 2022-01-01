@@ -9,12 +9,15 @@ import 'package:phone/src/json/emojis.dart';
 import 'package:phone/src/json/phone_options.dart';
 
 Future<void> main(List<String> arguments) async {
+  final now = DateTime.now();
   final rootLogger = Logger.root;
-  Logger.root.onRecord.listen((event) {
-    // ignore: avoid_print
-    print('${event.loggerName}: ${event.level} (${event.time}): '
-        '${event.message}');
-  });
+  Logger.root
+    ..level = Level.ALL
+    ..onRecord.listen((event) {
+      // ignore: avoid_print
+      print('${event.loggerName}: ${event.level} (${event.time}): '
+          '${event.message}');
+    });
   rootLogger.info('Starting...');
   final PhoneOptions options;
   if (PhoneOptions.optionsFile.existsSync() == true) {
@@ -94,5 +97,6 @@ Future<void> main(List<String> arguments) async {
   rootLogger.info('Configured stdin.');
   final mainLoop =
       MainLoop(speechEngine: engine, options: options, emojis: emojiList);
+  rootLogger.info('Initialised in ${DateTime.now().difference(now)}.');
   await mainLoop.run();
 }
