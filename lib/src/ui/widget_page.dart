@@ -16,12 +16,12 @@ typedef InfoKeyCallback = void Function(MainLoop mainLoop);
 /// A class to hold (and navigate through) a list of [Widget]s.
 class WidgetPage implements InputHandler {
   /// Create an instance.
-  WidgetPage(
-      {required this.label,
-      required this.widgets,
-      this.onCancel,
-      String loggerName = 'Untitled Widget List'})
-      : logger = Logger(loggerName),
+  WidgetPage({
+    required this.label,
+    required this.widgets,
+    this.onCancel,
+    String loggerName = 'Untitled Page',
+  })  : logger = Logger(loggerName),
         navigationMode = NavigationMode.standard,
         infoModeKeys = {} {
     infoModeKeys[KeyEvent.key0] = showCurrentTime;
@@ -86,7 +86,7 @@ class WidgetPage implements InputHandler {
     final widget = currentWidget;
     final String labelText;
     if (widget == null) {
-      String items = ' with ${widgets.length} item';
+      String items = 'with ${widgets.length} item';
       if (widgets.length != 1) {
         items += 's';
       }
