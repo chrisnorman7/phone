@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:logging/logging.dart';
 
-import 'input_handler.dart';
 import 'speech.dart';
 import 'src/json/emojis.dart';
 import 'src/json/phone_options.dart';
 import 'src/pages/main_page.dart';
+import 'src/ui/input_handler.dart';
 import 'src/ui/widget_page.dart';
 
 /// The main loop for the program.

@@ -1,6 +1,6 @@
 /// Provides the [InputHandler] class.
-import 'enumerations.dart';
-import 'main_loop.dart';
+import '../../enumerations.dart';
+import '../../main_loop.dart';
 
 /// A class for handling input.
 abstract class InputHandler {

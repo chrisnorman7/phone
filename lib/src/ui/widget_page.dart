@@ -2,8 +2,8 @@
 import 'package:logging/logging.dart';
 
 import '../../enumerations.dart';
-import '../../input_handler.dart';
 import '../../main_loop.dart';
+import 'input_handler.dart';
 import 'label.dart';
 import 'widgets/widget.dart';
 

@@ -3,8 +3,8 @@ import 'dart:async';
 
 import '../../alphabets.dart';
 import '../../enumerations.dart';
-import '../../input_handler.dart';
 import '../../main_loop.dart';
+import '../ui/input_handler.dart';
 
 /// A help page.
 ///
