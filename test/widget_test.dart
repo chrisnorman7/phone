@@ -92,6 +92,50 @@ void main() {
           expect(utterance.text, '${page.label()} with 2 items');
         },
       );
+      test(
+        'Widget.onActivate',
+        () async {
+          var i = 0;
+          final widget3 = Widget(
+              label: label('Widget 3'),
+              onActivate: (mainLoop) async {
+                i++;
+              });
+          page.widgets.add(widget3);
+          while (page.currentWidget != widget2) {
+            await page.moveRight(mainLoop);
+          }
+          expect(i, isZero);
+          await page.handleKeyEvent(KeyEvent.enter, mainLoop);
+          expect(i, isZero);
+          await page.moveRight(mainLoop);
+          await page.handleKeyEvent(KeyEvent.enter, mainLoop);
+          expect(i, 1);
+          await page.handleKeyEvent(KeyEvent.enter, mainLoop);
+          expect(i, 2);
+        },
+      );
+      test(
+        '.onCancel',
+        () async {
+          var i = 0;
+          await page.handleKeyEvent(KeyEvent.cancel, mainLoop);
+          expect(i, isZero);
+          final p = WidgetPage(
+            label: page.label,
+            widgets: page.widgets,
+            onCancel: (mainLoop) async {
+              i++;
+            },
+          );
+          await p.handleKeyEvent(KeyEvent.enter, mainLoop);
+          expect(i, isZero);
+          await p.handleKeyEvent(KeyEvent.cancel, mainLoop);
+          expect(i, 1);
+          await p.handleKeyEvent(KeyEvent.cancel, mainLoop);
+          expect(i, 2);
+        },
+      );
     },
   );
 }
