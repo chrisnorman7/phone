@@ -1,4 +1,5 @@
 /// Provides the [WidgetPage ] class.
+import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
 import '../../enumerations.dart';
@@ -130,47 +131,8 @@ class WidgetPage implements InputHandler {
   /// Show the current time.
   Future<void> showCurrentTime(MainLoop mainLoop) async {
     final now = DateTime.now();
-    final hour = now.hour.toString().padLeft(2, '0');
-    final minute = now.minute.toString().padLeft(2, '0');
-    final month = [
-      'Months start from 1',
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ].elementAt(now.month);
-    final weekDay = [
-      'Week days start at 1',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday'
-    ].elementAt(now.weekday);
-    final dayString = now.day.toString();
-    final String day;
-    if ([11, 12, 13].contains(now.day)) {
-      day = '${now.day}th';
-    } else if (dayString.endsWith('1')) {
-      day = '${dayString}st';
-    } else if (dayString.endsWith('2')) {
-      day = '${dayString}nd';
-    } else if (dayString.endsWith('3')) {
-      day = '${dayString}rd';
-    } else {
-      day = '${dayString}th';
-    }
-    await mainLoop.speak('$hour:$minute on $weekDay $month $day ${now.year}.');
+    final formatter = DateFormat();
+    await mainLoop.speak(formatter.format(now));
   }
 
   /// Handle a key event.
