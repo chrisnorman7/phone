@@ -3,31 +3,37 @@ import 'dart:async';
 
 import '../../alphabets.dart';
 import '../../enumerations.dart';
+import '../../input_handler.dart';
 import '../../main_loop.dart';
-import '../ui/label.dart';
-import '../ui/widget_page.dart';
-import '../ui/widgets/widget.dart';
 
 /// A help page.
 ///
 /// This page is used for speaking the functions of the keys that are
 /// recognised by the system.
-class HelpPage extends WidgetPage {
+class HelpPage implements InputHandler {
   /// Create an instance.
-  HelpPage()
-      : _cancel = false,
-        super(label: label('Press any key to hear its function.'), widgets: [
-          for (final key in KeyEvent.values)
-            Widget(label: label(key.toString()))
-        ]);
+  HelpPage() : _cancel = false;
 
   /// Whether or not the cancel button has been pressed this round.
   bool _cancel;
 
+  /// Speak the instructions.
+  @override
+  Future<void> onPush(MainLoop mainLoop) => mainLoop.speak(
+      'Press keys to hear their descriptions. Press cancel twice to exit.');
+
+  /// Do nothing.
+  @override
+  Future<void> onPop(MainLoop mainLoop) async {}
+
+  /// Speak instructions.
+  @override
+  Future<void> onReveal(MainLoop mainLoop, InputHandler covering) =>
+      onPush(mainLoop);
+
   /// Speak key descriptions.
   @override
-  Future<void> handleKeyEvent(
-      {required KeyEvent event, required MainLoop mainLoop}) async {
+  Future<void> handleKeyEvent(KeyEvent event, MainLoop mainLoop) async {
     final String keyDescription;
     var characters = letters[event];
     if (characters != null) {

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:logging/logging.dart';
 
+import 'input_handler.dart';
 import 'speech.dart';
 import 'src/json/emojis.dart';
 import 'src/json/phone_options.dart';
@@ -26,7 +27,7 @@ class MainLoop {
   final EmojiList emojis;
 
   /// The stack of [WidgetPage] instances.
-  final List<WidgetPage> pages;
+  final List<InputHandler> pages;
 
   /// Run the loop.
   Future<void> run() async {
@@ -48,7 +49,7 @@ class MainLoop {
           if (pages.isEmpty) {
             logger.info('Key event with no pages: $keyEvent.');
           } else {
-            await pages.last.handleKeyEvent(event: keyEvent, mainLoop: this);
+            await pages.last.handleKeyEvent(keyEvent, this);
           }
         }
       }
@@ -65,16 +66,16 @@ class MainLoop {
           interrupt: interrupt);
 
   /// Push a new page onto the [pages] stack.
-  Future<void> pushPage(WidgetPage page) async {
-    await page.showCurrentWidget(this);
+  Future<void> pushPage(InputHandler page) async {
+    await page.onPush(this);
     pages.add(page);
   }
 
   /// Pop the top page from the [pages] stack.
   Future<void> popPage() async {
-    pages.removeLast();
+    final covering = pages.removeLast()..onPop(this);
     if (pages.isNotEmpty) {
-      await pages.last.showCurrentWidget(this);
+      await pages.last.onReveal(this, covering);
     }
   }
 }

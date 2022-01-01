@@ -1,6 +1,8 @@
+/// Provides the [WidgetPage ] class.
 import 'package:logging/logging.dart';
 
 import '../../enumerations.dart';
+import '../../input_handler.dart';
 import '../../main_loop.dart';
 import 'label.dart';
 import 'widgets/widget.dart';
@@ -12,7 +14,7 @@ typedef OnCancelType = Future<void> Function(MainLoop mainLoop);
 typedef InfoKeyCallback = void Function(MainLoop mainLoop);
 
 /// A class to hold (and navigate through) a list of [Widget]s.
-class WidgetPage {
+class WidgetPage implements InputHandler {
   /// Create an instance.
   WidgetPage(
       {required this.label,
@@ -54,6 +56,19 @@ class WidgetPage {
 
   /// The map of registered information keys.
   final Map<KeyEvent, InfoKeyCallback> infoModeKeys;
+
+  /// Speak the title and number of widgets.
+  @override
+  Future<void> onPush(MainLoop mainLoop) => showCurrentWidget(mainLoop);
+
+  /// This method does nothing.
+  @override
+  Future<void> onPop(MainLoop mainLoop) async {}
+
+  /// Show the current widget.
+  @override
+  Future<void> onReveal(MainLoop mainLoop, InputHandler covering) =>
+      showCurrentWidget(mainLoop);
 
   /// Get the current widget.
   ///
@@ -159,8 +174,8 @@ class WidgetPage {
   }
 
   /// Handle a key event.
-  Future<void> handleKeyEvent(
-      {required KeyEvent event, required MainLoop mainLoop}) async {
+  @override
+  Future<void> handleKeyEvent(KeyEvent event, MainLoop mainLoop) async {
     if (navigationMode == NavigationMode.standard) {
       logger.info('Handle key $event.');
       switch (event) {
