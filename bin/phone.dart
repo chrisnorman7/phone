@@ -90,12 +90,12 @@ Future<void> main(List<String> arguments) async {
     rootLogger.info('Done.');
     await logWriter?.close();
     logWriter = null;
-  }
-  final size = logFile.statSync().size;
-  if (size == 0) {
-    rootLogger.info('Deleting empty log file ${logFile.path}.');
-    logFile.deleteSync(recursive: true);
-  } else {
-    rootLogger.info('Log file size: $size bytes.');
+    final size = logFile.statSync().size;
+    if (size == 0) {
+      rootLogger.info('Deleting empty log file ${logFile.path}.');
+      logFile.deleteSync(recursive: true);
+    } else {
+      rootLogger.info('Log file size: $size bytes.');
+    }
   }
 }
