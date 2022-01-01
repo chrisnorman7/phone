@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:logging/logging.dart';
+import 'package:path/path.dart' as path;
 import 'package:phone/emojis.dart';
 import 'package:phone/main_loop.dart';
 import 'package:phone/speech.dart';
@@ -11,15 +12,43 @@ import 'package:phone/ui.dart';
 Future<void> main(List<String> arguments) async {
   final now = DateTime.now();
   final rootLogger = Logger.root;
-  Logger.root
-    ..level = Level.ALL
-    ..onRecord.listen((event) {
-      // ignore: avoid_print
-      print('${event.loggerName}: ${event.level} (${event.time}): '
-          '${event.message}');
-    });
-  rootLogger.info('Starting...');
+  final year = now.year;
+  final month = now.month.toString().padLeft(2, '0');
+  final day = now.day.toString().padLeft(2, '0');
+  final hour = now.hour.toString().padLeft(2, '0');
+  final minute = now.minute.toString().padLeft(2, '0');
+  final second = now.second.toString().padLeft(2, '0');
+  final timestamp = '$year-$month-$day $hour-$minute-$second';
+  final logDirectory = Directory('logs');
+  final logFile = File(path.join(logDirectory.path, '$timestamp.txt'));
+  IOSink? logWriter;
   try {
+    Logger.root
+      ..level = Level.INFO
+      ..onRecord.listen((event) {
+        final message = StringBuffer()
+          ..writeln('${event.loggerName}: ${event.level} ('
+              '${event.time}): ${event.message}');
+        final e = event.error;
+        if (e != null) {
+          message
+            ..writeln(e)
+            ..writeln(event.stackTrace);
+        }
+        if (logWriter == null) {
+          // ignore: avoid_print
+          print(message.toString().substring(0, message.length - 2));
+        } else {
+          logWriter.write(message);
+        }
+      });
+    if (logDirectory.existsSync() == false) {
+      logDirectory.createSync(recursive: true);
+      rootLogger.info('Created log directory.');
+    }
+    logFile.createSync();
+    logWriter = logFile.openWrite();
+    rootLogger.info('Logging to ${logFile.path}.');
     final PhoneOptions options;
     if (PhoneOptions.optionsFile.existsSync() == true) {
       final data = PhoneOptions.optionsFile.readAsStringSync();
@@ -57,5 +86,16 @@ Future<void> main(List<String> arguments) async {
     await mainLoop.run();
   } catch (e, s) {
     rootLogger.severe('System failed.', e, s);
+  } finally {
+    rootLogger.info('Done.');
+    await logWriter?.close();
+    logWriter = null;
+  }
+  final size = logFile.statSync().size;
+  if (size == 0) {
+    rootLogger.info('Deleting empty log file ${logFile.path}.');
+    logFile.deleteSync(recursive: true);
+  } else {
+    rootLogger.info('Log file size: $size bytes.');
   }
 }
