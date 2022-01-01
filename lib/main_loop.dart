@@ -10,6 +10,9 @@ import 'src/pages/main_page.dart';
 import 'src/ui/input_handler.dart';
 import 'src/ui/widget_page.dart';
 
+/// The file where the log level lives.
+final logLevelFile = File('log_level.txt');
+
 /// The main loop for the program.
 class MainLoop {
   /// Create an instance.

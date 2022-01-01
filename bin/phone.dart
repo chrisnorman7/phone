@@ -23,8 +23,16 @@ Future<void> main(List<String> arguments) async {
   final logFile = File(path.join(logDirectory.path, '$timestamp.txt'));
   IOSink? logWriter;
   try {
+    final Level logLevel;
+    if (logLevelFile.existsSync()) {
+      final levelName = logLevelFile.readAsStringSync();
+      logLevel =
+          Level.LEVELS.firstWhere((element) => element.name == levelName);
+    } else {
+      logLevel = Level.INFO;
+    }
     Logger.root
-      ..level = Level.INFO
+      ..level = logLevel
       ..onRecord.listen((event) {
         final message = StringBuffer()
           ..writeln('${event.loggerName}: ${event.level} ('

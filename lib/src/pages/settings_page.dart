@@ -1,12 +1,15 @@
 /// Provides the [SettingsPage] class.
 import 'dart:convert';
 
+import 'package:logging/logging.dart';
+
 import '../../enumerations.dart';
 import '../../main_loop.dart';
 import '../json/phone_options.dart';
 import '../ui/label.dart';
 import '../ui/widget_page.dart';
 import '../ui/widgets/widget.dart';
+import 'log_level_page.dart';
 import 'speech_systems_page.dart';
 
 /// Change the speech rate.
@@ -69,6 +72,9 @@ class SettingsPage extends WidgetPage {
             options.navigationModeSticky = !options.navigationModeSticky;
             await showCurrentWidget(mainLoop);
           }),
+      Widget(
+          label: () => 'Log level: ${Logger.root.level.name}',
+          onActivate: (mainLoop) => mainLoop.pushPage(LogLevelPage())),
       Widget(
           label: label('Save'),
           onActivate: (mainLoop) async {

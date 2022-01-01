@@ -6,3 +6,4 @@
 build/
 options.json
 logs
+log_level.txt
