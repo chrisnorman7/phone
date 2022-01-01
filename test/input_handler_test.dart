@@ -8,13 +8,13 @@ import 'common.dart';
 /// An event received by [TestInputHandler].
 class InputEvent {
   /// Create an instance.
-  const InputEvent(this.event, this.mainLoop);
-
-  /// The event which was received.
-  final KeyEvent event;
+  const InputEvent(this.mainLoop, this.event);
 
   /// The main loop which was used.
   final MainLoop mainLoop;
+
+  /// The event which was received.
+  final KeyEvent event;
 }
 
 /// A push event.
@@ -87,7 +87,7 @@ class TestInputHandler implements InputHandler {
 
   @override
   Future<void> handleKeyEvent(KeyEvent event, MainLoop mainLoop) async {
-    inputEvents.add(InputEvent(event, mainLoop));
+    inputEvents.add(InputEvent(mainLoop, event));
   }
 
   @override
@@ -288,6 +288,19 @@ void main() {
           final event = inputHandler.revealEvents.first;
           expect(event.covering, coveringHandler);
           expect(event.mainLoop, mainLoop);
+        },
+      );
+      test(
+        'handleKeyEvent',
+        () async {
+          final inputHandler = TestInputHandler();
+          for (var i = 0; i < KeyEvent.values.length; i++) {
+            await inputHandler.handleKeyEvent(KeyEvent.values[i], mainLoop);
+            expect(inputHandler.inputEvents.length, i + 1);
+            final event = inputHandler.inputEvents.last;
+            expect(event.mainLoop, mainLoop);
+            expect(event.event, KeyEvent.values[i]);
+          }
         },
       );
     },
