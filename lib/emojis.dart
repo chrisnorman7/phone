@@ -1,4 +1,4 @@
-/// Provides the [getEmojiList] class.
+/// Provides the [getEmojis] class.
 import 'dart:convert';
 import 'dart:io';
 
@@ -7,7 +7,7 @@ import 'package:logging/logging.dart';
 import 'src/json/emojis.dart';
 
 /// Returns all emojis.
-EmojiList getEmojiList() {
+EmojiList getEmojis() {
   final rootLogger = Logger('Load Emojis');
   final emojiFile = File('unicode/data/all_emojis.json');
   final data = emojiFile.readAsStringSync();

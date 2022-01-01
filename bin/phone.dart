@@ -45,7 +45,7 @@ Future<void> main(List<String> arguments) async {
       rootLogger.info('Setting speech rate to $rate.');
     }
     rootLogger.info('Created speech engine.');
-    final emojiList = getEmojiList();
+    final emojiList = getEmojis();
     rootLogger.info('Loaded emojis.');
     stdin
       ..echoMode = false

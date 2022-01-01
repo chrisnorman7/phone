@@ -53,7 +53,7 @@ class DummyMainLoop extends MainLoop {
   /// Create an instance.
   DummyMainLoop()
       : super(
-            emojis: getEmojiList(),
+            emojis: getEmojis(),
             options: DummyPhoneOptions(),
             speechEngine: DummySpeechEngine());
 }
