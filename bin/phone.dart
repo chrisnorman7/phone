@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:filesize/filesize.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
 import 'package:phone/emojis.dart';
@@ -103,7 +104,7 @@ Future<void> main(List<String> arguments) async {
       rootLogger.info('Deleting empty log file ${logFile.path}.');
       logFile.deleteSync(recursive: true);
     } else {
-      rootLogger.info('Log file size: $size bytes.');
+      rootLogger.info('Log file size: ${filesize(size)}.');
     }
   }
 }
