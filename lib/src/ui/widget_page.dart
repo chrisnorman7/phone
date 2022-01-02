@@ -1,8 +1,8 @@
 /// Provides the [WidgetPage ] class.
 import 'package:characters/characters.dart';
-import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
+import '../../constants.dart';
 import '../../enumerations.dart';
 import '../../main_loop.dart';
 import 'input_handler.dart';
@@ -132,8 +132,7 @@ class WidgetPage implements InputHandler {
   /// Show the current time.
   Future<void> showCurrentTime(MainLoop mainLoop) async {
     final now = DateTime.now();
-    final formatter = DateFormat();
-    await mainLoop.speak(formatter.format(now));
+    await mainLoop.speak(dateTimeFormatter.format(now));
   }
 
   /// Handle a key event.
