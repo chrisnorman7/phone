@@ -66,3 +66,15 @@ enum NavigationMode {
   /// In this mode, the 0 key speaks the time, ETC.
   info,
 }
+
+/// The possible typing modes.
+enum TypingMode {
+  /// Lower case letters.
+  lowerCase,
+
+  /// Upper case letters.
+  upperCase,
+
+  /// Number entry.
+  numbers,
+}
