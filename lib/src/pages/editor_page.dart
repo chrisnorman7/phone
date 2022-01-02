@@ -5,6 +5,7 @@ import '../../alphabets.dart';
 import '../../enumerations.dart';
 import '../../main_loop.dart';
 import '../ui/input_handler.dart';
+import '../ui/label.dart';
 import '../ui/widget_page.dart';
 
 /// A page for editing text.
@@ -13,6 +14,7 @@ class EditorPage implements InputHandler {
   EditorPage({
     required this.onDone,
     String initialText = '',
+    this.label,
     int? cursorPosition,
     this.mode = TypingMode.upperCase,
     this.onCancel,
@@ -26,6 +28,12 @@ class EditorPage implements InputHandler {
 
   /// The text that will be edited.
   Characters text;
+
+  /// The label for this editor.
+  ///
+  /// If no label is given, then the current character will be spoken when the
+  /// editor is pushed. Otherwise, this value will be used.
+  final LabelType? label;
 
   /// The cursor position.
   ///
@@ -55,7 +63,9 @@ class EditorPage implements InputHandler {
         letter = letter.toUpperCase();
       }
       addString(letter);
-      await mainLoop.speak(letter, interrupt: false);
+      if (event != KeyEvent.enter) {
+        await mainLoop.speak(letter, interrupt: false);
+      }
       resetTypingState();
     }
     switch (event) {
@@ -88,7 +98,12 @@ class EditorPage implements InputHandler {
 
   @override
   Future<void> onPush(MainLoop mainLoop) async {
-    await speakCharacter(mainLoop);
+    final f = label;
+    if (f != null) {
+      await mainLoop.speak(f());
+    } else {
+      await speakCharacter(mainLoop);
+    }
   }
 
   @override

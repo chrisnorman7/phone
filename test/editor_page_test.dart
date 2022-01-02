@@ -2,6 +2,7 @@ import 'package:characters/characters.dart';
 import 'package:phone/alphabets.dart';
 import 'package:phone/enumerations.dart';
 import 'package:phone/src/pages/editor_page.dart';
+import 'package:phone/src/ui/label.dart';
 import 'package:test/test.dart';
 
 import 'common.dart';
@@ -139,7 +140,6 @@ void main() {
           expect(utterance.text, 'l');
           await editor.handleKeyEvent(KeyEvent.enter, mainLoop);
           expect(string, 'Help');
-          speech.expectUtterance(length: 13, interrupt: false, text: 'p');
           editor.cursorPosition = 2;
           await editor.handleKeyEvent(KeyEvent.key2, mainLoop);
           await editor.handleKeyEvent(KeyEvent.enter, mainLoop);
@@ -314,6 +314,19 @@ void main() {
               length: possible.length + 1,
               interrupt: true,
               text: possible.characters.first);
+        },
+      );
+      test(
+        '.onPush',
+        () async {
+          final speech = mainLoop.speechEngine as DummySpeechEngine
+            ..utterances.clear();
+          EditorPage(onDone: onDone).onPush(mainLoop);
+          speech.expectUtterance(length: 1, interrupt: true, text: 'blank');
+          EditorPage(onDone: onDone, label: label('Test Editor'))
+              .onPush(mainLoop);
+          speech.expectUtterance(
+              length: 2, interrupt: true, text: 'Test Editor');
         },
       );
     },
