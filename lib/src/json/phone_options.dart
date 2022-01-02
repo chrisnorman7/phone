@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../constants.dart';
 import '../../enumerations.dart';
 import '../speech/speech_system.dart';
 
@@ -90,4 +91,10 @@ class PhoneOptions {
 
   /// Convert an instance to JSON.
   Map<String, dynamic> toJson() => _$PhoneOptionsToJson(this);
+
+  /// Save this instance.
+  void save() {
+    final json = jsonEncoder.convert(this);
+    optionsFile.writeAsStringSync(json);
+  }
 }

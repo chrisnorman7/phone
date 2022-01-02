@@ -1,6 +1,3 @@
-/// Provides the [SettingsPage] class.
-import 'dart:convert';
-
 import 'package:logging/logging.dart';
 
 import '../../enumerations.dart';
@@ -78,9 +75,7 @@ class SettingsPage extends WidgetPage {
       Widget(
           label: label('Save'),
           onActivate: (mainLoop) async {
-            final json = options.toJson();
-            PhoneOptions.optionsFile
-                .writeAsStringSync(JsonEncoder.withIndent('  ').convert(json));
+            mainLoop.options.save();
             await mainLoop.popPage();
           }),
       Widget(
