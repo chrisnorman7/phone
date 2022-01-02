@@ -49,7 +49,10 @@ class ContactListPage extends WidgetPage {
         ),
       );
     for (final contact in contacts) {
-      widgets.add(Widget(label: label(contact.name)));
+      widgets.add(Widget(
+          label: () => contact.name,
+          onActivate: (mainLoop) =>
+              mainLoop.pushPage(EditContactPage(contact: contact))));
     }
     super.onPush(mainLoop);
   }
