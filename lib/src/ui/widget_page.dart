@@ -172,18 +172,24 @@ class WidgetPage implements InputHandler {
             _index = widgets.length - 1;
             await showCurrentWidget(mainLoop);
           } else if (event == KeyEvent.key4) {
-            final index = _index;
+            var index = _index;
             if (index != null) {
-              final startLetter =
-                  widgets[index].label().characters.characterAt(0);
-              for (var i = index; i >= 0; i--) {
-                if (widgets[i].label().characters.startsWith(startLetter)) {
-                  continue;
-                } else {
-                  _index = i;
-                  await showCurrentWidget(mainLoop);
-                }
+              final startLetter = widgets[index]
+                  .label()
+                  .toLowerCase()
+                  .characters
+                  .characterAt(0);
+              while (index! >= 0 &&
+                  widgets[index]
+                          .label()
+                          .toLowerCase()
+                          .characters
+                          .characterAt(0) ==
+                      startLetter) {
+                index -= 1;
+                _index = index;
               }
+              await showCurrentWidget(mainLoop);
             }
           } else if (event == KeyEvent.key6) {
             var index = _index;
