@@ -24,6 +24,7 @@ Future<void> main(List<String> arguments) async {
   final timestamp = '$year-$month-$day $hour-$minute-$second';
   final logFile = File(path.join(logDirectory.path, '$timestamp.txt'));
   IOSink? logWriter;
+  SpeechEngine? engine;
   try {
     final Level logLevel;
     if (logLevelFile.existsSync()) {
@@ -78,7 +79,7 @@ Future<void> main(List<String> arguments) async {
     final speechSystem = speechSystems
         .firstWhere((element) => element.name == options.speechSystemName);
     rootLogger.info('Using ${speechSystem.name} for TTS.');
-    final engine = SpeechEngine(system: speechSystem);
+    engine = SpeechEngine(system: speechSystem);
     final rate = options.getSpeechRate(speechSystem.name);
     if (rate != null) {
       engine.rate = rate;
@@ -101,6 +102,12 @@ Future<void> main(List<String> arguments) async {
   } catch (e, s) {
     rootLogger.severe('System failed.', e, s);
   } finally {
+    if (engine != null) {
+      engine.shutdown();
+      rootLogger.info('Speech engine shutdown.');
+    } else {
+      rootLogger.warning('Speech engine was never initialised.');
+    }
     rootLogger.info('Done.');
     await logWriter?.close();
     logWriter = null;
