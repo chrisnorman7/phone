@@ -56,8 +56,7 @@ class KeyDescriberPage implements InputHandler {
               'cancelled. Press again to return to the main menu.';
           break;
         case KeyEvent.enter:
-          keyDescription =
-              'Enter: Click the selected control or enter a new line.';
+          keyDescription = 'Enter: Click the selected control or submit text.';
           break;
         case KeyEvent.left:
           keyDescription = 'Left: Go to the previous letter or menu item.';
