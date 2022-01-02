@@ -2,6 +2,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:intl/intl.dart';
+
 import 'src/json/contacts.dart';
 
 /// The directory where log files are stored.
@@ -20,3 +22,6 @@ const contactTypes = [
   'Office',
   'Other',
 ];
+
+/// The date formatter to use for showing the full date and time.
+final dateTimeFormatter = DateFormat();
