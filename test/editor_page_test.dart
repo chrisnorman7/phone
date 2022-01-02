@@ -1,4 +1,5 @@
 import 'package:characters/characters.dart';
+import 'package:phone/alphabets.dart';
 import 'package:phone/enumerations.dart';
 import 'package:phone/src/pages/editor_page.dart';
 import 'package:test/test.dart';
@@ -290,6 +291,29 @@ void main() {
           // Check the output again.
           await editor.handleKeyEvent(KeyEvent.enter, mainLoop);
           expect(string, r'Hello World 123$.');
+        },
+      );
+      test(
+        'Overflow letters list',
+        () async {
+          final editor = EditorPage(onDone: onDone, mode: TypingMode.lowerCase);
+          expect(editor.lastLetterIndex, -1);
+          final speech = mainLoop.speechEngine as DummySpeechEngine
+            ..utterances.clear();
+          const key = KeyEvent.key2;
+          final possible = letters[key]!;
+          for (var i = 0; i < possible.length; i++) {
+            await editor.handleKeyEvent(key, mainLoop);
+            expect(editor.lastLetterIndex, i);
+            speech.expectUtterance(
+                length: i + 1, interrupt: true, text: possible[i]);
+          }
+          await editor.handleKeyEvent(key, mainLoop);
+          expect(editor.lastLetterIndex, isZero);
+          speech.expectUtterance(
+              length: possible.length + 1,
+              interrupt: true,
+              text: possible.characters.first);
         },
       );
     },

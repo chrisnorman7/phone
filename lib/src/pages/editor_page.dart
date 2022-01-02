@@ -131,7 +131,10 @@ class EditorPage implements InputHandler {
       if (mode == TypingMode.upperCase) {
         possible = possible.toUpperCase();
       }
-      final index = lastLetterIndex + 1;
+      var index = lastLetterIndex + 1;
+      if (index >= possible.length) {
+        index = 0;
+      }
       lastKey = key;
       lastLetterIndex = index;
       await mainLoop.speak(possible[index]);
@@ -146,13 +149,7 @@ class EditorPage implements InputHandler {
     } else if (cursorPosition > text.length) {
       cursorPosition = text.length;
     }
-    final String message;
-    if (cursorPosition == text.length) {
-      message = 'blank';
-    } else {
-      message = text.characterAt(cursorPosition).string;
-    }
-    await mainLoop.speak(message);
+    await speakCharacter(mainLoop);
   }
 
   /// Call the [onCancel] function if necessary.
