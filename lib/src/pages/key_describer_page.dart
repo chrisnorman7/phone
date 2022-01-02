@@ -38,7 +38,8 @@ class KeyDescriberPage implements InputHandler {
     var characters = letters[event];
     if (characters != null) {
       characters = [
-        for (final char in characters.split('')) char == ' ' ? 'space' : char
+        for (final char in characters.split(''))
+          char == ' ' ? 'space' : (char == '\n' ? 'line break' : char)
       ].join(' ');
       keyDescription = 'Used to type $characters';
     } else {
