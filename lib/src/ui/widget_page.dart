@@ -152,14 +152,14 @@ class WidgetPage implements InputHandler {
           await activate(mainLoop);
           break;
         case KeyEvent.left:
-          moveLeft(mainLoop);
+          await moveLeft(mainLoop);
           break;
         case KeyEvent.right:
-          moveRight(mainLoop);
+          await moveRight(mainLoop);
           break;
         case KeyEvent.mode:
           navigationMode = NavigationMode.info;
-          mainLoop.speak('Information mode. Press again to exit.');
+          await mainLoop.speak('Information mode. Press again to exit.');
           break;
         default:
           final widget = currentWidget;
