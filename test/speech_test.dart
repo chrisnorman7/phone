@@ -6,6 +6,20 @@ import 'common.dart';
 
 void main() {
   group(
+    'DummySpeechEngine class',
+    () {
+      test(
+        '.expectUtterance',
+        () async {
+          final speech = DummySpeechEngine();
+          await speech.speak(text: 'Hello world.', substitutions: {});
+          speech.expectUtterance(
+              length: 1, interrupt: true, text: 'Hello world.');
+        },
+      );
+    },
+  );
+  group(
     'Speech Tests',
     () {
       final engine = DummySpeechEngine();
