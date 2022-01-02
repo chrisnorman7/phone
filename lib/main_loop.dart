@@ -87,4 +87,10 @@ class MainLoop {
       await pages.last.onReveal(this, covering);
     }
   }
+
+  /// Replace the current page with [page].
+  Future<void> replacePage(InputHandler page) async {
+    await popPage();
+    await pushPage(page);
+  }
 }
