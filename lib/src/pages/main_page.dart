@@ -2,7 +2,7 @@
 import '../ui/label.dart';
 import '../ui/widget_page.dart';
 import '../ui/widgets/widget.dart';
-import 'help_page.dart';
+import 'key_describer_page.dart';
 import 'settings_page.dart';
 
 /// The main page.
@@ -18,7 +18,8 @@ class MainPage extends WidgetPage {
                       mainLoop.pushPage(SettingsPage(mainLoop.options))),
               Widget(
                   label: label('Key Descriptions'),
-                  onActivate: (mainLoop) => mainLoop.pushPage(HelpPage()))
+                  onActivate: (mainLoop) =>
+                      mainLoop.pushPage(KeyDescriberPage()))
             ],
             loggerName: 'Main Menu');
 }

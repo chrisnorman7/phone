@@ -1,4 +1,4 @@
-/// Provides the [HelpPage] class.
+/// Provides the [KeyDescriberPage] class.
 import 'dart:async';
 
 import '../../alphabets.dart';
@@ -10,9 +10,9 @@ import '../ui/input_handler.dart';
 ///
 /// This page is used for speaking the functions of the keys that are
 /// recognised by the system.
-class HelpPage implements InputHandler {
+class KeyDescriberPage implements InputHandler {
   /// Create an instance.
-  HelpPage() : _cancel = false;
+  KeyDescriberPage() : _cancel = false;
 
   /// Whether or not the cancel button has been pressed this round.
   bool _cancel;
