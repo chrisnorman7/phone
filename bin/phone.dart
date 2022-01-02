@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:filesize/filesize.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path;
+import 'package:phone/constants.dart';
 import 'package:phone/emojis.dart';
 import 'package:phone/main_loop.dart';
 import 'package:phone/speech.dart';
@@ -20,7 +21,6 @@ Future<void> main(List<String> arguments) async {
   final minute = now.minute.toString().padLeft(2, '0');
   final second = now.second.toString().padLeft(2, '0');
   final timestamp = '$year-$month-$day $hour-$minute-$second';
-  final logDirectory = Directory('logs');
   final logFile = File(path.join(logDirectory.path, '$timestamp.txt'));
   IOSink? logWriter;
   try {

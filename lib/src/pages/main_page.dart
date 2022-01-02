@@ -3,6 +3,7 @@ import '../ui/label.dart';
 import '../ui/widget_page.dart';
 import '../ui/widgets/widget.dart';
 import 'key_describer_page.dart';
+import 'log_viewer_page.dart';
 import 'settings_page.dart';
 
 /// The main page.
@@ -19,7 +20,10 @@ class MainPage extends WidgetPage {
               Widget(
                   label: label('Key Descriptions'),
                   onActivate: (mainLoop) =>
-                      mainLoop.pushPage(KeyDescriberPage()))
+                      mainLoop.pushPage(KeyDescriberPage())),
+              Widget(
+                  label: label('View log files'),
+                  onActivate: (mainLoop) => mainLoop.pushPage(LogViewerPage())),
             ],
             loggerName: 'Main Menu');
 }
