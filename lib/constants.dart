@@ -2,8 +2,21 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'src/json/contacts.dart';
+
 /// The directory where log files are stored.
 final logDirectory = Directory('logs');
 
 /// The json encoder to be used everywhere.
 const jsonEncoder = JsonEncoder.withIndent('  ');
+
+/// The default contact types.
+///
+/// These entries will be used when adding [EmailAddress]es and [PhoneNumber]s.
+const contactTypes = [
+  'Home',
+  'Personal',
+  'Work',
+  'Office',
+  'Other',
+];
