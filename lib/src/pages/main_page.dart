@@ -1,7 +1,7 @@
 import '../ui/label.dart';
 import '../ui/widget_page.dart';
 import '../ui/widgets/widget.dart';
-import 'contact_list_page.dart';
+import 'contacts/contact_list_page.dart';
 import 'key_describer_page.dart';
 import 'log_viewer_page.dart';
 import 'settings_page.dart';
@@ -15,8 +15,8 @@ class MainPage extends WidgetPage {
             widgets: [
               Widget(
                   label: label('Contacts'),
-                  onActivate: (mainLoop) =>
-                      mainLoop.pushPage(ContactListPage(mainLoop.contactList))),
+                  onActivate: (mainLoop) => mainLoop.pushPage(
+                      ContactListPage(contactList: mainLoop.contactList))),
               Widget(
                   label: label('Settings'),
                   onActivate: (mainLoop) =>
