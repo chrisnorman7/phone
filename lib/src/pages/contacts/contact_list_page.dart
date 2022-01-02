@@ -32,22 +32,20 @@ class ContactListPage extends WidgetPage {
       ..add(
         Widget(
           label: label('Add Contact'),
-          onActivate: (mainLoop) async {
-            await mainLoop.pushPage(
-              EditorPage(
-                  onDone: (text) async {
-                    if (text.isEmpty) {
-                      await mainLoop.popPage();
-                    } else {
-                      final contact = Contact(firstName: text);
-                      await mainLoop
-                          .replacePage(EditContactPage(contact: contact));
-                    }
-                  },
-                  onCancel: (mainLoop) => mainLoop.popPage()),
-            );
-            await mainLoop.speak('First name:');
-          },
+          onActivate: (mainLoop) => mainLoop.pushPage(
+            EditorPage(
+              onDone: (text) async {
+                if (text.isEmpty) {
+                  await mainLoop.popPage();
+                } else {
+                  final contact = Contact(firstName: text);
+                  await mainLoop.replacePage(EditContactPage(contact: contact));
+                }
+              },
+              onCancel: (mainLoop) => mainLoop.popPage(),
+              label: label('First name:'),
+            ),
+          ),
         ),
       );
     for (final contact in contacts) {
