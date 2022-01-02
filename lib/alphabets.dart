@@ -3,7 +3,7 @@ import 'enumerations.dart';
 
 /// The letters which can be typed by each number key.
 const letters = {
-  KeyEvent.key0: r' );[]<>{}\|~`¬',
+  KeyEvent.key0: ' \n);[]<>{}\\|~`¬',
   KeyEvent.key1: '.,?!:@#',
   KeyEvent.key2: 'abc"',
   KeyEvent.key3: 'def£',
