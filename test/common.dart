@@ -4,6 +4,7 @@ import 'package:phone/main_loop.dart';
 import 'package:phone/speech.dart';
 import 'package:phone/src/json/phone_options.dart';
 import 'package:phone/ui.dart';
+import 'package:test/test.dart';
 
 /// A speech utterance.
 class SpeechUtterance {
@@ -35,6 +36,20 @@ class DummySpeechEngine extends SpeechEngine {
       bool interrupt = true}) async {
     final utterance = SpeechUtterance(text: text, interrupt: interrupt);
     utterances.add(utterance);
+  }
+
+  /// Method for testing speech utterances.
+  ///
+  /// This method uses the [expect] function to ensure that:
+  /// * The number of [utterances] is [length].
+  /// * The last [SpeechUtterance] has an interrupt value of [interrupt].
+  /// * The text of the last [SpeechUtterance] matches [text].
+  void expectUtterance(
+      {required int length, required bool interrupt, required dynamic text}) {
+    expect(utterances.length, length);
+    final utterance = utterances.last;
+    expect(utterance.interrupt, interrupt);
+    expect(utterance.text, text);
   }
 }
 
