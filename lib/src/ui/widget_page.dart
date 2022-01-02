@@ -1,4 +1,5 @@
 /// Provides the [WidgetPage ] class.
+import 'package:characters/characters.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
@@ -164,8 +165,50 @@ class WidgetPage implements InputHandler {
           final widget = currentWidget;
           if (widget != null && widget.handledKeys.containsKey(event)) {
             await widget.handledKeys[event]!(mainLoop);
+          } else if (event == KeyEvent.key2) {
+            _index = 0;
+            await showCurrentWidget(mainLoop);
+          } else if (event == KeyEvent.key8) {
+            _index = widgets.length - 1;
+            await showCurrentWidget(mainLoop);
+          } else if (event == KeyEvent.key4) {
+            final index = _index;
+            if (index != null) {
+              final startLetter =
+                  widgets[index].label().characters.characterAt(0);
+              for (var i = index; i >= 0; i--) {
+                if (widgets[i].label().characters.startsWith(startLetter)) {
+                  continue;
+                } else {
+                  _index = i;
+                  await showCurrentWidget(mainLoop);
+                }
+              }
+            }
+          } else if (event == KeyEvent.key6) {
+            var index = _index;
+            if (index != null) {
+              final startLetter =
+                  widgets[index].label().characters.characterAt(0);
+              while (true) {
+                index = index! + 1;
+                if (index >= widgets.length) {
+                  break;
+                } else if (widgets[index]
+                    .label()
+                    .characters
+                    .startsWith(startLetter)) {
+                  continue;
+                } else {
+                  _index = index;
+                  await showCurrentWidget(mainLoop);
+                  break;
+                }
+              }
+            }
+          } else {
+            logger.info('Unhandled event $event.');
           }
-          logger.info('Unhandled event $event.');
       }
     } else {
       final callback = infoModeKeys[event];
