@@ -43,16 +43,13 @@ class MainLoop {
   Future<void> run() async {
     final logger = Logger('Main Loop')..info('Started.');
     await pushPage(MainPage());
+    OUTER:
     await for (final charCodes in stdin) {
       for (final charCode in charCodes) {
         final char = String.fromCharCode(charCode);
         final keyEvent = options.keyMap[char];
         if (char == 'q') {
-          pages.clear();
-          logger.info('Done.');
-          speechEngine.shutdown();
-          logger.info('Speech engine shutdown.');
-          return;
+          break OUTER;
         } else if (keyEvent == null) {
           logger.warning('Unhandled key $char.');
         } else {
@@ -64,6 +61,8 @@ class MainLoop {
         }
       }
     }
+    pages.clear();
+    logger.info('Completed successfully.');
   }
 
   /// Speak some text.
