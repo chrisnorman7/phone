@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:logging/logging.dart';
 
 import 'speech.dart';
+import 'src/json/contacts.dart';
 import 'src/json/emojis.dart';
 import 'src/json/phone_options.dart';
 import 'src/pages/main_page.dart';
@@ -17,7 +18,10 @@ final logLevelFile = File('log_level.txt');
 class MainLoop {
   /// Create an instance.
   MainLoop(
-      {required this.speechEngine, required this.options, required this.emojis})
+      {required this.speechEngine,
+      required this.options,
+      required this.emojis,
+      required this.contactList})
       : pages = [];
 
   /// The speech engine to use.
@@ -28,6 +32,9 @@ class MainLoop {
 
   /// The emojis recognised by this program.
   final EmojiList emojis;
+
+  /// The contact list.
+  final ContactList contactList;
 
   /// The stack of [WidgetPage] instances.
   final List<InputHandler> pages;

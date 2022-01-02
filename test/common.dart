@@ -2,6 +2,7 @@
 import 'package:phone/emojis.dart';
 import 'package:phone/main_loop.dart';
 import 'package:phone/speech.dart';
+import 'package:phone/src/json/contacts.dart';
 import 'package:phone/src/json/phone_options.dart';
 import 'package:phone/ui.dart';
 import 'package:test/test.dart';
@@ -70,5 +71,6 @@ class DummyMainLoop extends MainLoop {
       : super(
             emojis: getEmojis(),
             options: DummyPhoneOptions(),
-            speechEngine: DummySpeechEngine());
+            speechEngine: DummySpeechEngine(),
+            contactList: ContactList());
 }

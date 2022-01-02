@@ -8,6 +8,7 @@ import 'package:phone/constants.dart';
 import 'package:phone/emojis.dart';
 import 'package:phone/main_loop.dart';
 import 'package:phone/speech.dart';
+import 'package:phone/src/json/contacts.dart';
 import 'package:phone/src/json/phone_options.dart';
 import 'package:phone/ui.dart';
 
@@ -73,6 +74,7 @@ Future<void> main(List<String> arguments) async {
           keyMap: defaultKeymap);
       rootLogger.info('Loaded options.');
     }
+    final contactList = ContactList.load();
     final speechSystem = speechSystems
         .firstWhere((element) => element.name == options.speechSystemName);
     rootLogger.info('Using ${speechSystem.name} for TTS.');
@@ -89,8 +91,11 @@ Future<void> main(List<String> arguments) async {
       ..echoMode = false
       ..lineMode = false;
     rootLogger.info('Configured stdin.');
-    final mainLoop =
-        MainLoop(speechEngine: engine, options: options, emojis: emojiList);
+    final mainLoop = MainLoop(
+        speechEngine: engine,
+        options: options,
+        emojis: emojiList,
+        contactList: contactList);
     rootLogger.info('Initialised in ${DateTime.now().difference(now)}.');
     await mainLoop.run();
   } catch (e, s) {
