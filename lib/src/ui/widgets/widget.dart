@@ -13,7 +13,10 @@ typedef OnActivateCallback = Future<void> Function(MainLoop mainLoop);
 class Widget {
   /// Create an instance.
   const Widget(
-      {required this.label, this.onActivate, this.handledKeys = const {}});
+      {required this.label,
+      this.onActivate,
+      this.handledKeys = const {},
+      this.debugName = 'Untitled Widget'});
 
   /// The function that will return the label for this widget.
   final LabelType label;
@@ -26,4 +29,11 @@ class Widget {
 
   /// The key events that this widget will handle.
   final Map<KeyEvent, OnActivateCallback> handledKeys;
+
+  /// The debug name for this widget.
+  final String debugName;
+
+  /// Uses [debugName].
+  @override
+  String toString() => '<$runtimeType $debugName>';
 }
