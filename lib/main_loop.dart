@@ -65,7 +65,7 @@ class MainLoop {
   Future<void> speak(String text, {bool interrupt = true}) =>
       speechEngine.speak(
           text: text,
-          substitutions: options.speechDictionary,
+          substitutions: {...options.speechDictionary, ...emojis.conversions},
           interrupt: interrupt);
 
   /// Push a new page onto the [pages] stack.
