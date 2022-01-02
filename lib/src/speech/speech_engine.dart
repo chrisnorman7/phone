@@ -81,9 +81,14 @@ class SpeechEngine {
   Future<void> enqueueText(
       String text, Map<String, String> substitutions) async {
     final process = _process ?? await _reset();
-    final command = system.beforeSpeech +
-        system.translateText(substituteText(text, substitutions)) +
-        system.afterSpeech;
+    if (text == '\n') {
+      text = 'line break';
+    } else if (text == ' ') {
+      text = 'space';
+    } else {
+      text = system.translateText(substituteText(text, substitutions));
+    }
+    final command = system.beforeSpeech + text + system.afterSpeech;
     logger.info(command);
     process.stdin.writeln(command);
   }
