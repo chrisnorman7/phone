@@ -90,7 +90,7 @@ class MainLoop {
 
   /// Replace the current page with [page].
   Future<void> replacePage(InputHandler page) async {
-    await popPage();
+    pages.removeLast().onPop(this);
     await pushPage(page);
   }
 }
