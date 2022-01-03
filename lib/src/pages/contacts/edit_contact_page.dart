@@ -7,7 +7,9 @@ import '../../ui/input_handler.dart';
 import '../../ui/label.dart';
 import '../../ui/widget_page.dart';
 import '../../ui/widgets/widget.dart';
+import '../date_picker.dart';
 import '../editor_page.dart';
+import '../yes_no_page.dart';
 
 /// Edit a contact parameter.
 Future<void> Function(MainLoop mainLoop) _editContactParameter({
@@ -93,10 +95,21 @@ class EditContactPage extends WidgetPage {
             if (dateOfBirth == null) {
               preamble += 'Not set';
             } else {
-              preamble += dateTimeFormatter.format(dateOfBirth);
+              preamble += dateFormatter.format(dateOfBirth);
             }
             return preamble;
           },
+          onActivate: (mainLoop) => mainLoop.pushPage(
+            DatePicker(
+              initialDateTime: contact.dateOfBirth ?? DateTime.now(),
+              onDone: (dateTime) async {
+                contact.dateOfBirth = dateTime;
+                mainLoop.contactList.save();
+                await mainLoop.popPage();
+              },
+              onCancel: (mainLoop) => mainLoop.popPage(),
+            ),
+          ),
         ),
         Widget(
           label: () => 'Website: ${contact.website}',
@@ -114,6 +127,33 @@ class EditContactPage extends WidgetPage {
             setValue: (text) => contact.notes = text,
           ),
         ),
+        Widget(
+          label: () => mainLoop.contactList.contacts.contains(contact)
+              ? 'Delete Contact'
+              : 'Save Contact',
+          onActivate: (mainLoop) {
+            final contacts = mainLoop.contactList;
+            if (contacts.contacts.contains(contact)) {
+              return mainLoop.pushPage(
+                YesNoPage(
+                    yesCallback: (mainLoop) {
+                      contacts
+                        ..contacts.remove(contact)
+                        ..save();
+                      return mainLoop.popPage();
+                    },
+                    noCallback: (mainLoop) => mainLoop.popPage(),
+                    question:
+                        'Are you sure you want to delete ${contact.fullName}?'),
+              );
+            } else {
+              contacts
+                ..contacts.add(contact)
+                ..save();
+              return mainLoop.popPage();
+            }
+          },
+        )
       ]);
     super.onPush(mainLoop);
   }

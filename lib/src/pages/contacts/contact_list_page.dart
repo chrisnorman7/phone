@@ -13,9 +13,11 @@ class ContactListPage extends WidgetPage {
   /// Create an instance.
   ContactListPage({required this.contactList})
       : super(
-            label: label('Contacts'),
-            widgets: [],
-            loggerName: 'Contacts List Page');
+          label: label('Contacts'),
+          widgets: [],
+          onCancel: (mainLoop) => mainLoop.popPage(),
+          loggerName: 'Contacts List Page',
+        );
 
   /// The contacts list to work with.
   final ContactList contactList;
