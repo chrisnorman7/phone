@@ -74,3 +74,41 @@ class DummyMainLoop extends MainLoop {
             speechEngine: DummySpeechEngine(),
             contactList: ContactList());
 }
+
+/// Expect things about the given [dateTime].
+void expectDateTime(
+  DateTime dateTime, {
+  Object? year,
+  Object? month,
+  Object? day,
+  Object? hour,
+  Object? minute,
+  Object? second,
+  Object? millisecond,
+  Object? microsecond,
+}) {
+  if (year != null) {
+    expect(dateTime.year, year);
+  }
+  if (month != null) {
+    expect(dateTime.month, month);
+  }
+  if (day != null) {
+    expect(dateTime.day, day);
+  }
+  if (hour != null) {
+    expect(dateTime.hour, hour);
+  }
+  if (minute != null) {
+    expect(dateTime.minute, minute);
+  }
+  if (second != null) {
+    expect(dateTime.second, second);
+  }
+  if (millisecond != null) {
+    expect(dateTime.millisecond, millisecond);
+  }
+  if (microsecond != null) {
+    expect(dateTime.microsecond, microsecond);
+  }
+}
