@@ -60,13 +60,14 @@ class KeyDescriberPage implements InputHandler {
           keyDescription = 'Enter: Click the selected control or submit text.';
           break;
         case KeyEvent.left:
-          keyDescription = 'Left: Go to the previous letter or menu item.';
+          keyDescription =
+              'Arrow left: Go to the previous letter or menu item.';
           break;
         case KeyEvent.mode:
           keyDescription = 'Mode: Change navigation or editing modes.';
           break;
         case KeyEvent.right:
-          keyDescription = 'Right: Go to the next letter or menu item.';
+          keyDescription = 'Arrow right: Go to the next letter or menu item.';
           break;
         default:
           keyDescription = '$event: This key has no description.';
