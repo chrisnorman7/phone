@@ -45,7 +45,7 @@ class EditorPage implements InputHandler {
   TypingMode mode;
 
   /// What to do when the cancel key is pressed.
-  final OnCancelType? onCancel;
+  final MainLoopCallback? onCancel;
 
   /// The last key to be pressed.
   KeyEvent? lastKey;

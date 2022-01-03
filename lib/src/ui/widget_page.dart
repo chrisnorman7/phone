@@ -10,7 +10,7 @@ import 'label.dart';
 import 'widgets/widget.dart';
 
 /// The type of the [WidgetPage.onCancel] function.
-typedef OnCancelType = Future<void> Function(MainLoop mainLoop);
+typedef MainLoopCallback = Future<void> Function(MainLoop mainLoop);
 
 /// The type for all information key callbacks.
 typedef InfoKeyCallback = void Function(MainLoop mainLoop);
@@ -43,7 +43,7 @@ class WidgetPage implements InputHandler {
   ///
   /// If this value is `null`, then some other mechanism will have to be used
   /// for cancelling this menu.
-  final OnCancelType? onCancel;
+  final MainLoopCallback? onCancel;
 
   /// The current index in the list.
   ///
