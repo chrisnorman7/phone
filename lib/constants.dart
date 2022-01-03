@@ -25,3 +25,6 @@ const contactTypes = [
 
 /// The date formatter to use for showing the full date and time.
 final dateTimeFormatter = DateFormat();
+
+/// A formatter for showing only dates.
+final dateFormatter = DateFormat('EEEE d MMMM y');
