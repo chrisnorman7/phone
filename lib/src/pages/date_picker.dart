@@ -4,6 +4,9 @@ import '../../main_loop.dart';
 import '../ui/input_handler.dart';
 import '../ui/widget_page.dart';
 
+/// The type of the `onDone` function for [DatePicker] instances.
+typedef DateTimeCallback = Future<void> Function(DateTime dateTime);
+
 /// A widget for selecting a date.
 class DatePicker implements InputHandler {
   /// Create an instance.
@@ -46,7 +49,7 @@ class DatePicker implements InputHandler {
   final int? maxDay;
 
   /// The function to call when the desired date is selected.
-  final Future<void> Function(DateTime dateTime) onDone;
+  final DateTimeCallback onDone;
 
   /// What to do when the cancel key is pressed.
   final MainLoopCallback? onCancel;
