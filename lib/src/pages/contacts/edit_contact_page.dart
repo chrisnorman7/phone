@@ -143,7 +143,7 @@ class EditContactPage extends WidgetPage {
                       return mainLoop.popPage();
                     },
                     noCallback: (mainLoop) => mainLoop.popPage(),
-                    question:
+                    question: () =>
                         'Are you sure you want to delete ${contact.fullName}?'),
               );
             } else {
