@@ -147,3 +147,9 @@ To run the test suite, use the standard `dart test` command.
 Log files of your session are stored in a `logs` folder. You can view these either in a standard text editor, or from within the OS itself.
 
 If you discover that something is being logged that shouldn't be, or conversely that you believe something should be logged that is not currently being logged, please [submit an issue](https://github.com/chrisnorman7/phone/issues/new).
+
+## Hardware
+
+For building the phone, the below hardware is suggested:
+
+* [4G pHAT for Raspberry Pi - LTE Cat-4/3G/2G with GNSS Positioning](https://thepihut.com/collections/raspberry-pi-hats/products/4g-phat-for-raspberry-pi-lte-cat-4-3g-2g-with-gnss-positioning)
