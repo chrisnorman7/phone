@@ -17,6 +17,9 @@ PhoneOptions _$PhoneOptionsFromJson(Map<String, dynamic> json) => PhoneOptions(
         (k, e) => MapEntry(k, e as int),
       ),
       navigationModeSticky: json['navigationModeSticky'] as bool? ?? true,
+      contactDetailLabels: (json['contactDetailLabels'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       speechDictionary:
           (json['speechDictionary'] as Map<String, dynamic>?)?.map(
                 (k, e) => MapEntry(k, e as String),
@@ -32,6 +35,7 @@ Map<String, dynamic> _$PhoneOptionsToJson(PhoneOptions instance) =>
       'keyMap':
           instance.keyMap.map((k, e) => MapEntry(k, _$KeyEventEnumMap[e])),
       'navigationModeSticky': instance.navigationModeSticky,
+      'contactDetailLabels': instance.contactDetailLabels,
       'speechDictionary': instance.speechDictionary,
     };
 

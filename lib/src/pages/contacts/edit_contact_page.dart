@@ -10,6 +10,7 @@ import '../../ui/widgets/widget.dart';
 import '../date_picker.dart';
 import '../editor_page.dart';
 import '../yes_no_page.dart';
+import 'contact_details_page.dart';
 
 /// Edit a contact parameter.
 Future<void> Function(MainLoop mainLoop) _editContactParameter({
@@ -74,18 +75,83 @@ class EditContactPage extends WidgetPage {
             setValue: (text) => contact.title = text,
           ),
         ),
+        Widget(
+          label: label('Add Phone Number'),
+          onActivate: (mainLoop) => addContactDetail(
+            mainLoop: mainLoop,
+            onDone: (detailType, detailValue) async {
+              contact.phoneNumbers.add(
+                PhoneNumber(
+                  number: detailValue,
+                  numberType: detailType,
+                ),
+              );
+              mainLoop.contactList.save();
+              await mainLoop.popPage();
+            },
+            editorLabel: 'Phone Number',
+            detailTypeLabel: 'Phone Number Label',
+            typingMode: TypingMode.numbers,
+          ),
+        ),
         ...[
           for (final phoneNumber in contact.phoneNumbers)
             Widget(
               label: () => 'Phone number (${phoneNumber.numberType}): '
                   '${phoneNumber.number}',
+              onActivate: (mainLoop) => mainLoop.pushPage(
+                EditDetailPage(
+                  detailType: phoneNumber.numberType,
+                  detailValue: phoneNumber.number,
+                  onDone: (detailType, detailValue) {
+                    phoneNumber
+                      ..number = detailValue
+                      ..numberType = detailType;
+                    mainLoop.contactList.save();
+                    return mainLoop.popPage();
+                  },
+                  editorLabel: 'Phone number',
+                  detailTypeLabel: 'Phone Number Type',
+                  typingMode: TypingMode.numbers,
+                ),
+              ),
             )
         ],
+        Widget(
+          label: label('Add Email Address'),
+          onActivate: (mainLoop) => addContactDetail(
+            mainLoop: mainLoop,
+            onDone: (detailType, detailValue) {
+              contact.emailAddresses.add(
+                EmailAddress(address: detailValue, addressType: detailType),
+              );
+              mainLoop.contactList.save();
+              return mainLoop.popPage();
+            },
+            editorLabel: 'Email address',
+            detailTypeLabel: 'Email Address Type',
+          ),
+        ),
         ...[
           for (final emailAddress in contact.emailAddresses)
             Widget(
               label: () => 'Email Address (${emailAddress.addressType}): '
                   '${emailAddress.address}',
+              onActivate: (mainLoop) => mainLoop.pushPage(
+                EditDetailPage(
+                  detailType: emailAddress.addressType,
+                  detailValue: emailAddress.address,
+                  onDone: (detailType, detailValue) {
+                    emailAddress
+                      ..address = detailValue
+                      ..addressType = detailType;
+                    mainLoop.contactList.save();
+                    return mainLoop.popPage();
+                  },
+                  editorLabel: 'Email address',
+                  detailTypeLabel: 'Email Type',
+                ),
+              ),
             )
         ],
         Widget(

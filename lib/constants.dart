@@ -15,8 +15,9 @@ const jsonEncoder = JsonEncoder.withIndent('  ');
 /// The default contact types.
 ///
 /// These entries will be used when adding [EmailAddress]es and [PhoneNumber]s.
-const contactTypes = [
+const defaultContactDetailLabels = [
   'Home',
+  'Mobile',
   'Personal',
   'Work',
   'Office',

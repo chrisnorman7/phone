@@ -46,8 +46,10 @@ class PhoneOptions {
     required this.keyMap,
     Map<String, int>? speechSystemRates,
     this.navigationModeSticky = true,
+    List<String>? contactDetailLabels,
     this.speechDictionary = defaultSpeechDictionary,
-  }) : speechSystemRates = speechSystemRates ?? {};
+  })  : speechSystemRates = speechSystemRates ?? {},
+        contactDetailLabels = contactDetailLabels ?? [];
 
   /// Create an instance from a JSON object.
   factory PhoneOptions.fromJson(Map<String, dynamic> json) =>
@@ -73,6 +75,9 @@ class PhoneOptions {
 
   /// Whether ot not information mode should be sticky.
   bool navigationModeSticky;
+
+  /// The list of custom contact detail labels to use.
+  final List<String> contactDetailLabels;
 
   /// The speech dictionary to use.
   final Map<String, String> speechDictionary;
